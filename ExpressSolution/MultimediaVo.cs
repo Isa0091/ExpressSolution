@@ -9,7 +9,7 @@ namespace ExpressSolution
 {
     public class MultimediaVo : IValidatedValueObject
     {
-        public MultimediaVo(string name,string mymeType,string urlMultimedia, MultimediaType multimediaType)
+        public MultimediaVo(string name,string mimeType,string urlMultimedia, MultimediaType multimediaType)
         {
 
         }
@@ -21,7 +21,7 @@ namespace ExpressSolution
         /// <summary>
         /// 
         /// </summary>
-        public string MymeType { get; init; }
+        public string MimeType { get; init; }
         /// <summary>
         /// 
         /// </summary>

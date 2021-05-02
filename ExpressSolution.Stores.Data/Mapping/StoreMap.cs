@@ -15,7 +15,6 @@ namespace ExpressSolution.Stores.Data.Mapping
             b.HasKey(x => x.Id);
             b.Property(x => x.Id).HasMaxLength(50).IsRequired();
             b.Property(x => x.Name).HasMaxLength(300).IsRequired();
-            b.Property(x => x.UrlLogo).HasMaxLength(300).IsRequired();
             b.OwnsOne(x => x.Description).Property(x => x.Description).HasMaxLength(500).IsRequired();
             b.OwnsOne(x => x.Description).Property(x => x.ExtendedDescription).HasMaxLength(1500);
 
@@ -48,7 +47,7 @@ namespace ExpressSolution.Stores.Data.Mapping
                 multimedia.Property(x => x.Id).HasMaxLength(50);
                 multimedia.Property(x => x.StoreId).HasMaxLength(50);
                 multimedia.WithOwner().HasForeignKey(x => x.StoreId);
-                multimedia.OwnsOne(x => x.DataMultimedia).Property(x => x.MymeType).HasMaxLength(200);
+                multimedia.OwnsOne(x => x.DataMultimedia).Property(x => x.MimeType).HasMaxLength(200);
                 multimedia.OwnsOne(x => x.DataMultimedia).Property(x => x.UrlMultimedia).HasMaxLength(500).IsRequired();
                 multimedia.OwnsOne(x => x.DataMultimedia).Property(x => x.Name).HasMaxLength(200);
             });

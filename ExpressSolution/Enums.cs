@@ -36,6 +36,7 @@ namespace ExpressSolution
 
     public enum MultimediaRelevance
     {
+        Logo = 1,
         /// <summary>
         /// 
         /// </summary>
