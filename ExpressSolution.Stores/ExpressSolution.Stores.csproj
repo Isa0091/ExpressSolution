@@ -5,10 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Comands\" />
     <Folder Include="Data\" />
     <Folder Include="Dtos\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
