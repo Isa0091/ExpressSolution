@@ -14,8 +14,4 @@
     <ProjectReference Include="..\ExpressSolution\ExpressSolution.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\Store\" />
-  </ItemGroup>
-
 </Project>
