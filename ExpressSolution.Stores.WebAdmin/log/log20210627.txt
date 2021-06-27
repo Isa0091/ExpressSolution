@@ -102,3 +102,6 @@ System.AggregateException: Some services are not able to be constructed (Error w
 2021-06-27 03:07:29.975 -06:00 [INF] Starting web host
 2021-06-27 12:30:51.854 -06:00 [INF] Starting web host
 2021-06-27 12:36:25.250 -06:00 [INF] Starting web host
+2021-06-27 12:57:48.542 -06:00 [INF] Starting web host
+2021-06-27 13:02:52.040 -06:00 [INF] Starting web host
+2021-06-27 13:05:26.565 -06:00 [INF] Starting web host
