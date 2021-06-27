@@ -12,7 +12,7 @@ namespace ExpressSolution.Stores.Queries.Category
         /// <summary>
         /// Nombre de la categoria
         /// </summary>
-        public string CategoryName { get; set; }
+        public string NameContains { get; set; }
 
         /// <summary>
         /// Si esta activa o incactiva la categoria

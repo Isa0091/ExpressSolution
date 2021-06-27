@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpressSolution.Dtos.Paging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,9 +15,19 @@ namespace ExpressSolution.Stores.Data
         /// <summary>
         /// Obtengo las categorias filtradas
         /// </summary>
-        /// <param name="CategoryName"></param>
+        /// <param name="nameContains"></param>
         /// <param name="isActive"></param>
         /// <returns></returns>
-        Task<List<Category>> GetCategoriesFilter(string CategoryName, bool? isActive);
+        Task<List<Category>> GetCategoriesFilter(string nameContains, bool? isActive);
+
+        /// <summary>
+        /// Listado de categorias paginado
+        /// </summary>
+        /// <param name="nameContains"></param>
+        /// <param name="isActive"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="resultPerPage"></param>
+        /// <returns></returns>
+        Task<PagingOutputDto<Category>> GetListCategoryPaged(string nameContains, bool? isActive, int pageNumber, int resultPerPage);
     }
 }

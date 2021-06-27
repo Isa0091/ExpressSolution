@@ -21,7 +21,7 @@ namespace ExpressSolution.Stores.Handlers.Queries.Category
         }
         public async Task<List<Stores.Category>> Handle(GetCategory request, CancellationToken cancellationToken)
         {
-            List<Stores.Category> categories=await _categoryRepo.GetCategoriesFilter(request.CategoryName, request.Active);
+            List<Stores.Category> categories=await _categoryRepo.GetCategoriesFilter(request.NameContains, request.Active);
             return categories;
         }
     }
