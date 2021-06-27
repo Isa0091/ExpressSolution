@@ -9,5 +9,13 @@ namespace ExpressSolution.Stores.Comands.Category
 {
     public class RemoveDynamicDataFromCategory : CommandBase
     {
+        /// <summary>
+        /// Identificadro de la categoria
+        /// </summary>
+        public string CategoryId { get; set; }
+        /// <summary>
+        /// Nombre del dato que se desea eliminar
+        /// </summary>
+        public string DataName { get; set; }
     }
 }
