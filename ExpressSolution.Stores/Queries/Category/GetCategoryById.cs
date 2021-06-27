@@ -9,5 +9,9 @@ namespace ExpressSolution.Stores.Queries.Category
 {
     public class GetCategoryById : QueryBase<ExpressSolution.Stores.Category>
     {
+        /// <summary>
+        /// Identificadro de la categoria
+        /// </summary>
+        public string CategoryId { get; set; }
     }
 }
