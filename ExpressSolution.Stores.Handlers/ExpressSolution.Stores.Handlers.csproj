@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ExpressSolution\ExpressSolution.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Store\" />
+  </ItemGroup>
+
 </Project>

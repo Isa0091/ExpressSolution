@@ -9,5 +9,14 @@ namespace ExpressSolution.Stores.Comands.Store
 {
     public class AddContactStore : CommandBase
     {
+        /// <summary>
+        /// Identificador de la tienda
+        /// </summary>
+        public string StoreId { get; set; }
+
+        /// <summary>
+        /// Datos del contacto
+        /// </summary>
+        public ContactDataVo ContactData { get; set; }
     }
 }

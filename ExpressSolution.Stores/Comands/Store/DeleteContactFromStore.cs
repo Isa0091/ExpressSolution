@@ -9,5 +9,14 @@ namespace ExpressSolution.Stores.Comands.Store
 {
     public class DeleteContactFromStore : CommandBase 
     {
+        /// <summary>
+        /// Identificador del cliente
+        /// </summary>
+        public string StoreId { get; set; }
+
+        /// <summary>
+        /// Identificador del contacto
+        /// </summary>
+        public string ContactId { get; set; }
     }
 }

@@ -9,5 +9,14 @@ namespace ExpressSolution.Stores.Comands.Store
 {
     public class RemoveCategoryFromStore : CommandBase
     {
+        /// <summary>
+        /// Identificador de la tienda
+        /// </summary>
+        public string StoreId { get; set; }
+
+        /// <summary>
+        /// Identificador de la categoria
+        /// </summary>
+        public string CategoryId { get; set; }
     }
 }

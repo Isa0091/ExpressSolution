@@ -9,5 +9,14 @@ namespace ExpressSolution.Stores.Comands.Store
 {
     public class AddDynamicDataToStore : CommandBase
     {
+        /// <summary>
+        /// Identificador de la tienda
+        /// </summary>
+        public string StoreId { get; set; }
+
+        /// <summary>
+        /// Datos dinamicosa asignar a la tienda
+        /// </summary>
+        public List<DynamicDataVo> DynamicData { get; set; }
     }
 }

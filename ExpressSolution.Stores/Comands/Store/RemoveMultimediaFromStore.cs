@@ -9,5 +9,14 @@ namespace ExpressSolution.Stores.Comands.Store
 {
     public class RemoveMultimediaFromStore : CommandBase
     {
+        /// <summary>
+        /// Identificador de la multimedia
+        /// </summary>
+        public string MultimediaId { get; set; }
+
+        /// <summary>
+        /// Identificador de la tienda
+        /// </summary>
+        public string StoreId { get; set; }
     }
 }
