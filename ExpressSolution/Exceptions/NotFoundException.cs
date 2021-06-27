@@ -35,46 +35,28 @@ namespace ExpressSolution
     /// </summary>
     public enum NotFoundExceptionType
     {
+       
         /// <summary>
         /// 
         /// </summary>
-        Account = 0,
-        /// <summary>
-        /// 
-        /// </summary>
-        Group = 1,
-        /// <summary>
-        /// 
-        /// </summary>
-        Client = 2,
-        /// <summary>
-        /// 
-        /// </summary>
-        AccountGroup = 3,
-        /// <summary>
-        /// 
-        /// </summary>
-        Movement = 4,
-        /// <summary>
-        /// Un dato dinamico de una cuenta no se encontro
-        /// </summary>
-        AccountDynamicData = 6,
-        /// <summary>
-        /// 
-        /// </summary>
-        ClientContact = 7,
-        /// <summary>
-        /// Un dato dinamico del cliente
-        /// </summary>
-        ClientDynamicData = 8,
-        /// <summary>
-        /// 
-        /// </summary>
-        MovementType = 9,
+       DynamicData = 1,
+       /// <summary>
+       /// 
+       /// </summary>
+       Contact = 2,
+       /// <summary>
+       /// 
+       /// </summary>
+       Store = 3,
+       /// <summary>
+       /// 
+       /// </summary>
+       Category= 4,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        PaymenMethod=10
+       /// <summary>
+       /// 
+       /// </summary>
+       Multimedia = 5
+
     }
 }

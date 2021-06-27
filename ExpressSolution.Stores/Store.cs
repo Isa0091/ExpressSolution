@@ -88,7 +88,7 @@ namespace ExpressSolution.Stores
             DynamicDataVo dynamicData = DynamicData.FirstOrDefault(x => x.DataName.Trim().ToLower() == name.Trim().ToLower());
 
             if (dynamicData == null)
-                throw NotFoundException.CreateException(NotFoundExceptionType.AccountDynamicData, nameof(name), this.GetType());
+                throw NotFoundException.CreateException(NotFoundExceptionType.DynamicData, nameof(name), this.GetType());
 
             DynamicData.Remove(dynamicData);
         }
@@ -160,7 +160,7 @@ namespace ExpressSolution.Stores
             StoreContact contact = Contacts.FirstOrDefault(x => x.Id == contactId);
 
             if (contact == null)
-                throw NotFoundException.CreateException(NotFoundExceptionType.ClientContact, nameof(contactId), this.GetType());
+                throw NotFoundException.CreateException(NotFoundExceptionType.Contact, nameof(contactId), this.GetType());
 
             Contacts.Remove(contact);
         }
@@ -192,7 +192,7 @@ namespace ExpressSolution.Stores
            StoreCategory storeCategory= StoreCategories.SingleOrDefault(z => z.CategoryId == CategoryId);
 
             if(storeCategory==null)
-                throw NotFoundException.CreateException(NotFoundExceptionType.ClientContact, nameof(CategoryId), this.GetType());
+                throw NotFoundException.CreateException(NotFoundExceptionType.Category, nameof(CategoryId), this.GetType());
 
             StoreCategories.Remove(storeCategory);
         }
@@ -207,7 +207,7 @@ namespace ExpressSolution.Stores
             MultimediaStore multimedia = Multimedia.SingleOrDefault(z => z.Id == id);
 
             if (multimedia == null)
-                throw NotFoundException.CreateException(NotFoundExceptionType.ClientContact, nameof(id), this.GetType());
+                throw NotFoundException.CreateException(NotFoundExceptionType.Multimedia, nameof(id), this.GetType());
 
             return multimedia;
         }

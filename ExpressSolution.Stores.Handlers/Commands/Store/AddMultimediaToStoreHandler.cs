@@ -28,9 +28,9 @@ namespace ExpressSolution.Stores.Handlers.Commands.Store
             ExpressSolution.Stores.Store store = await _storeRepo.GetById(request.StoreId);
 
             if (store == null)
-                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"La tienda consultada no existe");
+                throw NotFoundException.CreateException(NotFoundExceptionType.Store, nameof(request), this.GetType());
 
-            if(request.MultimediaType == MultimediaType.ExternalLink || request.MultimediaType == MultimediaType.YouTubeLink &&
+            if (request.MultimediaType == MultimediaType.ExternalLink || request.MultimediaType == MultimediaType.YouTubeLink &&
                string.IsNullOrEmpty(request.UrlMultimedia))
                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"Si se definen el tipo de multimedia externo es necesario enviar  la url");
 

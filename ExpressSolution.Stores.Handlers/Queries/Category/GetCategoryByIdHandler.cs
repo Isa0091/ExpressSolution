@@ -25,7 +25,7 @@ namespace ExpressSolution.Stores.Handlers.Queries.Category
             Stores.Category category = await _categoryRepo.GetById(request.CategoryId);
 
             if (category == null)
-                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"La categoria consultada no existe");
+                throw NotFoundException.CreateException(NotFoundExceptionType.Category, nameof(request), this.GetType());
 
             return category;
         }

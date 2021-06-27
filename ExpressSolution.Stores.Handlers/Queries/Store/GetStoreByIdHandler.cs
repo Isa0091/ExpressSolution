@@ -24,7 +24,7 @@ namespace ExpressSolution.Stores.Handlers.Queries.Store
             ExpressSolution.Stores.Store store = await _storeRepo.GetById(request.StoreId);
 
             if(store==null)
-                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"La tienda consultada no existe");
+                throw NotFoundException.CreateException(NotFoundExceptionType.Store, nameof(request), this.GetType());
 
             return store;
         }

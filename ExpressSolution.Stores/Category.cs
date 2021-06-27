@@ -78,7 +78,7 @@ namespace ExpressSolution.Stores
             DynamicDataVo dynamicData = DynamicData.FirstOrDefault(x => x.DataName.Trim().ToLower() == name.Trim().ToLower());
 
             if (dynamicData == null)
-                throw NotFoundException.CreateException(NotFoundExceptionType.AccountDynamicData, nameof(name), this.GetType());
+                throw NotFoundException.CreateException(NotFoundExceptionType.DynamicData, nameof(name), this.GetType());
 
             DynamicData.Remove(dynamicData);
         }

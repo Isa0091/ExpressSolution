@@ -28,7 +28,7 @@ namespace ExpressSolution.Stores.Handlers.Commands.Store
             ExpressSolution.Stores.Store store = await _storeRepo.GetById(request.StoreId);
 
             if (store == null)
-                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"La tienda consultada no existe");
+                throw NotFoundException.CreateException(NotFoundExceptionType.Store, nameof(request), this.GetType());
 
             MultimediaStore multimediaStore = store.GetMultimediaStore(request.MultimediaId);
 

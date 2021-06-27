@@ -29,9 +29,9 @@ namespace ExpressSolution.Stores.Handlers.Commands.Category
             ExpressSolution.Stores.Category category = await _categoryRepo.GetById(request.Id);
 
             if(category==null)
-                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"La categoria consultada no existe");
+                throw NotFoundException.CreateException(NotFoundExceptionType.Category, nameof(request), this.GetType());
 
-            if(request.CategoryData.Multimedia.Any())
+            if (request.CategoryData.Multimedia.Any())
             {
                 await  _managerFileEasyAzureProvider.DeleteFile(new Uri(category.Logo.UrlMultimedia));
                 Uri urlImage = await _managerFileEasyAzureProvider.PostFileStorageAsync(request.CategoryData.Multimedia.ToArray(), request.CategoryData.MultimediaName, request.CategoryData.MimeType);
