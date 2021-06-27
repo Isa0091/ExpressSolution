@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ManagerFileEasyAzure" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExpressSolution.Stores.Data\ExpressSolution.Stores.Data.csproj" />
+    <ProjectReference Include="..\ExpressSolution.Stores\ExpressSolution.Stores.csproj" />
+    <ProjectReference Include="..\ExpressSolution\ExpressSolution.csproj" />
   </ItemGroup>
 
 </Project>
