@@ -1,4 +1,5 @@
-﻿using Isa0091.Domain.Core.Model;
+﻿using ExpressSolution.Exceptions;
+using Isa0091.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,6 +102,34 @@ namespace ExpressSolution.Stores
         {
             DynamicDataVo dynamic = DynamicData.SingleOrDefault(x => x.DataName.Trim().ToLower() == dataName.Trim().ToLower());
             return dynamic;
+        }
+
+        /// <summary>
+        /// Agrega una categoria a la tienda
+        /// </summary>
+        /// <param name="categoryId"></param>
+         public void AddCategory(string categoryId)
+        {
+            StoreCategory storeCategory = StoreCategories.SingleOrDefault(x => x.CategoryId== categoryId);
+
+            if (storeCategory != null)
+                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(categoryId), this.GetType(), $"La categoria esta repetida, ya ha sido asignada");
+
+            StoreCategories.Add(new StoreCategory() { 
+                 CategoryId= categoryId
+            });
+        }
+
+        /// <summary>
+        /// agrega un listado de categorias a la tienda
+        /// </summary>
+        /// <param name="listCategories"></param>
+        public void AddCategory(List<string> listCategories)
+        {
+            foreach (string categoryId in listCategories)
+            {
+                AddCategory(categoryId);
+            }
         }
     }
 }
