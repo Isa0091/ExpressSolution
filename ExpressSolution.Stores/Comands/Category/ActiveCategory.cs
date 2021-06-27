@@ -9,5 +9,9 @@ namespace ExpressSolution.Stores.Comands.Category
 {
     public class ActiveCategory :  CommandBase
     {
+        /// <summary>
+        /// Identificadro de la categoria
+        /// </summary>
+        public string CategoryId { get; set; }
     }
 }
