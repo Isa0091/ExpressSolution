@@ -1,4 +1,5 @@
-﻿using ExpressSolution.Stores.Comands.Category;
+﻿using ExpressSolution.Dtos.Paging;
+using ExpressSolution.Stores.Comands.Category;
 using ExpressSolution.Stores.Queries.Category;
 using ExpressSolution.Stores.WebAdmin.Models.Category;
 using ExpressSolution.Stores.WebAdmin.Models.Category.Inputs;
@@ -17,15 +18,29 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
     public class CategoryController : Controller
     {
         private readonly IMediator _mediator;
+        private int _resultPerPage;
 
         public CategoryController(
             IMediator mediator)
         {
             _mediator = mediator;
+            _resultPerPage = 10;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(FilterCategoryInputVm filter, int page = 1)
         {
+            if (filter == null)
+                filter = new FilterCategoryInputVm();
+
+            PagingOutputDto<ExpressSolution.Stores.Category> result=await _mediator.Send(new GetCategoryPaged()
+            {
+                 IsActive= filter.IsActive,
+                 NameContains=filter.NameContains,
+                 PageNumber= page,
+                 ResultPerPage= _resultPerPage
+            });
+
             return View();
         }
 

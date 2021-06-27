@@ -1,0 +1,18 @@
+﻿@model ExpressSolution.Stores.WebAdmin.Models.Paging.PagingVm
+
+
+<div class="btn-group">
+    @if (Model.UrlPreviousPage != null)
+    {
+        <a class="btn-white btn @(Model.Customclass)" href="@Model.UrlPreviousPage" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </a>
+    }
+    @foreach (var item in Model.Buttons)
+    {
+        <a class="btn-white btn  @(Model.Customclass) @if(item.Page == Model.ActivePage){@("active")}" href="@item.UrlButton">@item.Page</a>
+    }
+    @if (Model.UrlNexPage != null)
+    {
+        <a class="btn-white btn  @(Model.Customclass)" href="@Model.UrlNexPage" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </a>
+    }
+
+</div>
