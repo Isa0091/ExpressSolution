@@ -99,3 +99,4 @@ System.AggregateException: Some services are not able to be constructed (Error w
    at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(IEnumerable`1 serviceDescriptors, IServiceProviderEngine engine, ServiceProviderOptions options)<---
 
 2021-06-27 03:03:16.639 -06:00 [INF] Starting web host
+2021-06-27 03:07:29.975 -06:00 [INF] Starting web host
