@@ -2,7 +2,7 @@
 @using ExpressSolution.Stores.WebAdmin.Extensions
 @using ExpressSolution.Stores.WebAdmin.Models
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Categorias";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -22,15 +22,15 @@
                         <div class="row">
 
                             <div class="form-group col-md-4">
+                                <label asp-for="Filter.NameContains">Nombre</label>
+                                <input asp-for="Filter.NameContains" class="form-control" name="NameContains" />
+                            </div>
+
+                            <div class="form-group col-md-4">
                                 <label asp-for="Filter.State">Activos</label>
                                 <select asp-for="Filter.State" asp-items="EnumExtension.EnumSelectlist<State>()" class="form-control" name="State">
                                     <option selected="selected" value=>[TODOS]</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                <label asp-for="Filter.NameContains">Nombre</label>
-                                <input asp-for="Filter.NameContains" class="form-control" name="NameContains" />
                             </div>
 
                             <div class="col-md-4">
