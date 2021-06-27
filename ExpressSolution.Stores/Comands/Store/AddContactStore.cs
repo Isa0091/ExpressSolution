@@ -15,6 +15,11 @@ namespace ExpressSolution.Stores.Comands.Store
         public string StoreId { get; set; }
 
         /// <summary>
+        /// Identificadro del contacto
+        /// </summary>
+        public string ContactId { get; set; }
+
+        /// <summary>
         /// Datos del contacto
         /// </summary>
         public ContactDataVo ContactData { get; set; }

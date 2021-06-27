@@ -131,5 +131,39 @@ namespace ExpressSolution.Stores
                 AddCategory(categoryId);
             }
         }
+
+        /// <summary>
+        /// Agrega los datos de un contacto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="contactData"></param>
+        /// <returns></returns>
+        public StoreContact AddStoreContact(string id, ContactDataVo contactData)
+        {
+            StoreContact contact = new StoreContact
+            {
+                Id = id,
+                ContactData = contactData with { }
+            };
+
+            Contacts.Add(contact);
+
+            return contact;
+        }
+
+        /// <summary>
+        /// Elimina los datos de un contacto
+        /// </summary>
+        /// <param name="contactId"></param>
+        public void DeleteContact(string contactId)
+        {
+            StoreContact contact = Contacts.FirstOrDefault(x => x.Id == contactId);
+
+            if (contact == null)
+                throw NotFoundException.CreateException(NotFoundExceptionType.ClientContact, nameof(contactId), this.GetType());
+
+            Contacts.Remove(contact);
+        }
+
     }
 }
