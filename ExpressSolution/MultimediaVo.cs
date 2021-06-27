@@ -38,7 +38,7 @@ namespace ExpressSolution
         /// </summary>
         public void IsValid()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
