@@ -183,5 +183,18 @@ namespace ExpressSolution.Stores
             return multimediaStore;
         }
 
+        /// <summary>
+        /// Elimina una categoria
+        /// </summary>
+        /// <param name="CategoryId"></param>
+        public void RemoveCategory(string CategoryId)
+        {
+           StoreCategory storeCategory= StoreCategories.SingleOrDefault(z => z.CategoryId == CategoryId);
+
+            if(storeCategory==null)
+                throw NotFoundException.CreateException(NotFoundExceptionType.ClientContact, nameof(CategoryId), this.GetType());
+
+            StoreCategories.Remove(storeCategory);
+        }
     }
 }
