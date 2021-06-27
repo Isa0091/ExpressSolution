@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpressSolution.Stores.Comands.Category
+namespace ExpressSolution.Stores.Comands.Store
 {
-    public class DesactivedCategory : CommandBase
+    public class InactivateStore : CommandBase
     {
         /// <summary>
-        /// Identificadro de la categoria
+        /// Identificadro de la tienda
         /// </summary>
-        public string CategoryId { get; set; }
+        public string StoreId { get; set; }
     }
 }

@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace ExpressSolution.Stores.Handlers.Commands.Category
 {
-    class DesactivedCategoryHandler : IRequestHandler<DesactivedCategory>
+    class InactivateCategoryHandler : IRequestHandler<InactivateCategory>
     {
         private readonly ICategoryRepo _categoryRepo;
 
-        DesactivedCategoryHandler(
+        InactivateCategoryHandler(
             ICategoryRepo categoryRepo)
         {
             _categoryRepo = categoryRepo;
         }
-        public async Task<Unit> Handle(DesactivedCategory request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(InactivateCategory request, CancellationToken cancellationToken)
         {
             ExpressSolution.Stores.Category category = await _categoryRepo.GetById(request.CategoryId);
 
