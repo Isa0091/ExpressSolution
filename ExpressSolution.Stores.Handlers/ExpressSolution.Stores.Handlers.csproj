@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="ManagerFileEasyAzure" Version="1.0.0" />
   </ItemGroup>
 

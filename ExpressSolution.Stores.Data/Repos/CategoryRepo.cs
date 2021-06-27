@@ -19,5 +19,12 @@ namespace ExpressSolution.Stores.Data.Repos
         {
             return await _db.Categories.SingleOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<List<Category>> GetCategoriesFilter(string CategoryName, bool? isActive)
+        {
+            List<Category> result=await _db.Categories.Where(x => (CategoryName == null || x.Name.Contains(CategoryName)) &&
+                                        (isActive == null || x.Active == isActive)).ToListAsync();
+            return result;
+        }
     }
 }

@@ -11,5 +11,12 @@ namespace ExpressSolution.Stores.Data
     /// </summary>
     public interface ICategoryRepo :  IBaseRepo<string, Category>
     {
+        /// <summary>
+        /// Obtengo las categorias filtradas
+        /// </summary>
+        /// <param name="CategoryName"></param>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
+        Task<List<Category>> GetCategoriesFilter(string CategoryName, bool? isActive);
     }
 }
