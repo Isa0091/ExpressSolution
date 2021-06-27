@@ -196,5 +196,30 @@ namespace ExpressSolution.Stores
 
             StoreCategories.Remove(storeCategory);
         }
+
+        /// <summary>
+        /// Obtengo la data de la multimedia store por su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public MultimediaStore GetMultimediaStore(string id)
+        {
+            MultimediaStore multimedia = Multimedia.SingleOrDefault(z => z.Id == id);
+
+            if (multimedia == null)
+                throw NotFoundException.CreateException(NotFoundExceptionType.ClientContact, nameof(id), this.GetType());
+
+            return multimedia;
+        }
+
+        /// <summary>
+        /// Remuevo la multimedia storage de la tienda
+        /// </summary>
+        /// <param name="id"></param>
+        public void RemoveMultimedia(string id)
+        {
+            MultimediaStore multimediaStore = GetMultimediaStore(id);
+            Multimedia.Remove(multimediaStore);
+        }
     }
 }

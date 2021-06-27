@@ -17,9 +17,11 @@ namespace ExpressSolution.Stores.Handlers.Commands.Store
         private readonly IStoreRepo _storeRepo;
         private readonly IManagerFileEasyAzureProvider _managerFileEasyAzureProvider;
         public AddMultimediaToStoreHandler(
-            IStoreRepo storeRepo)
+            IStoreRepo storeRepo,
+            IManagerFileEasyAzureProvider managerFileEasyAzureProvider)
         {
             _storeRepo = storeRepo;
+            _managerFileEasyAzureProvider = managerFileEasyAzureProvider;
         }
         public async Task<Unit> Handle(AddMultimediaToStore request, CancellationToken cancellationToken)
         {
