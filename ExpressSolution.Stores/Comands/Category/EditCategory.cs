@@ -1,4 +1,5 @@
-﻿using Isa0091.Domain.Core.Commands;
+﻿using ExpressSolution.Stores.Dtos.Category;
+using Isa0091.Domain.Core.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,13 @@ namespace ExpressSolution.Stores.Comands.Category
 {
     public class EditCategory :  CommandBase
     {
+        /// <summary>
+        /// Identificador de la categoria
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
+        /// Data de la categoria
+        /// </summary>
+        public CategoryData CategoryData { get; set; }
     }
 }

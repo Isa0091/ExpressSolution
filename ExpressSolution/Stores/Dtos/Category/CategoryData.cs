@@ -8,6 +8,10 @@ namespace ExpressSolution.Stores.Dtos.Category
 {
     public class CategoryData
     {
+        public CategoryData()
+        {
+            Multimedia = new List<byte>();
+        }
         /// <summary>
         /// Nombre de la categoria
         /// </summary>
