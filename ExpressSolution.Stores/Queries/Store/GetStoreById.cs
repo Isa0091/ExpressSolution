@@ -9,5 +9,9 @@ namespace ExpressSolution.Stores.Queries.Store
 {
     public class GetStoreById : QueryBase<ExpressSolution.Stores.Store>
     {
+        /// <summary>
+        /// Identificadro de la tienda
+        /// </summary>
+        public string StoreId { get; set; }
     }
 }

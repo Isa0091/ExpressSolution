@@ -7,7 +7,16 @@ using System.Threading.Tasks;
 
 namespace ExpressSolution.Stores.Queries.Store
 {
-    public class GetStore : QueryBase<List<ExpressSolution.Stores.Category>>
+    public class GetStore : QueryBase<List<ExpressSolution.Stores.Store>>
     {
+        /// <summary>
+        /// Nombre de la categoria
+        /// </summary>
+        public string NameContains { get; set; }
+
+        /// <summary>
+        /// Si esta activa o incactiva la categoria
+        /// </summary>
+        public bool? Active { get; set; }
     }
 }

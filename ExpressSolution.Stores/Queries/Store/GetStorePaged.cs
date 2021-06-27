@@ -10,5 +10,14 @@ namespace ExpressSolution.Stores.Queries.Store
 {
     public class GetStorePaged :  QueryBase<PagingOutputDto<ExpressSolution.Stores.Store>>
     {
+        /// <summary>
+        /// Nombre de la categoria
+        /// </summary>
+        public string NameContains { get; set; }
+
+        /// <summary>
+        /// Si esta activa o incactiva la categoria
+        /// </summary>
+        public bool? Active { get; set; }
     }
 }
