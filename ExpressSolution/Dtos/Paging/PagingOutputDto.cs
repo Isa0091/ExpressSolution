@@ -12,16 +12,16 @@ namespace ExpressSolution.Dtos.Paging
     /// <typeparam name="TEntity"></typeparam>
     public class PagingOutputDto<TEntity> where TEntity : new()
     {
-        public PagingOutputDto(List<TEntity> listadoPaginado, int totalItems)
+        public PagingOutputDto(List<TEntity> paginatedList, int totalItems)
         {
-            ListadoPaginado = listadoPaginado;
+            PaginatedList = paginatedList;
             TotalItems = totalItems;
         }
 
         /// <summary>
         /// Listado paginado de la entidad
         /// </summary>
-        public List<TEntity> ListadoPaginado { get; set; }
+        public List<TEntity> PaginatedList { get; set; }
 
         /// <summary>
         /// Total de items

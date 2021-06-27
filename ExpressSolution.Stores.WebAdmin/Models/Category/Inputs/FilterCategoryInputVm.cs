@@ -15,6 +15,6 @@ namespace ExpressSolution.Stores.WebAdmin.Models.Category.Inputs
         /// <summary>
         /// Indica si esta activa o no la categoria
         /// </summary>
-        public bool? IsActive { get; set; }
+        public State? State { get; set; }
     }
 }

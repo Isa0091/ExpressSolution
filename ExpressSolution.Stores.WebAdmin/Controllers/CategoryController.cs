@@ -1,6 +1,7 @@
 ﻿using ExpressSolution.Dtos.Paging;
 using ExpressSolution.Stores.Comands.Category;
 using ExpressSolution.Stores.Queries.Category;
+using ExpressSolution.Stores.WebAdmin.Extensions;
 using ExpressSolution.Stores.WebAdmin.Models.Category;
 using ExpressSolution.Stores.WebAdmin.Models.Category.Inputs;
 using ExpressSolution.Stores.WebAdmin.Models.Category.Output;
@@ -35,13 +36,37 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
             PagingOutputDto<ExpressSolution.Stores.Category> result=await _mediator.Send(new GetCategoryPaged()
             {
-                 IsActive= filter.IsActive,
+                 IsActive= filter.State != null ? ((int)filter.State.Value).GetEnumToBoolValue() : null,
                  NameContains=filter.NameContains,
                  PageNumber= page,
                  ResultPerPage= _resultPerPage
             });
 
-            return View();
+            List<CategoryOutputVm> categories =
+                result.PaginatedList.Select(z => new CategoryOutputVm()
+                {
+                     Active= z.Active,
+                     DateCreated= z.DateCreated.ToString("dd/MM/yyyy"),
+                     Description= z.Description.Description,
+                     Id= z.Id,
+                     MultimediaType= z.Logo.MultimediaType,
+                     Name= z.Name,
+                     UrlMultimedia= z.Logo.UrlMultimedia
+                }).ToList();
+
+            ListCategoryOutputVm listCategoryOutputVm = new ListCategoryOutputVm()
+            {
+                Categories = categories,
+                Filter = filter,
+                PagingInfo = new Models.Paging.PagingInfo()
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = _resultPerPage,
+                    TotalItems = result.TotalItems
+                }
+            };
+
+            return View(listCategoryOutputVm);
         }
 
 
