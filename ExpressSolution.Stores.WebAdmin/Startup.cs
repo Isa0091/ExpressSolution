@@ -49,7 +49,7 @@ namespace ExpressSolution.Stores.WebAdmin
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddManegerFileEasyAzure("","");
+            services.AddManegerFileEasyAzure(_conf["AzureStorage:Connection"], _conf["AzureStorage:container"]);
 
             //Integration events
             IntegrationEventTopicConfiguration eventConfig = _conf
