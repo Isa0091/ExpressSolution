@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpressSolution.Stores.Comands.Category
+namespace ExpressSolution.Stores.Comands.Store
 {
-    public class AddCategory : CommandBase
+    public class CreateStore : CommandBase
     {
     }
 }

@@ -12,6 +12,9 @@ namespace ExpressSolution.Stores
         public Store ()
         {
             DateCreated = DateTimeOffset.Now;
+            StoreCategories = new List<StoreCategory>();
+            DynamicData = new List<DynamicDataVo>();
+            Contacts = new List<StoreContact>();
         }
         /// <summary>
         /// Identificador unicode la tienda
@@ -48,18 +51,14 @@ namespace ExpressSolution.Stores
         public List<StoreContact> Contacts { get; set; }
 
         /// <summary>
-        /// 
+        /// Categorias a la que pertenece esta empresa
         /// </summary>
         public List<MultimediaStore> Multimedia { get; set; }
-        /// <summary>
-        /// Foranea
-        /// </summary>
-        public string IdCategory { get; set; }
 
         /// <summary>
-        /// 
+        /// Listado de categorias
         /// </summary>
-        private Category Category { get; set; }
+        public List<StoreCategory> StoreCategories { get; set; }
 
         public void AddDynamicData(DynamicDataVo dynamicData)
         {

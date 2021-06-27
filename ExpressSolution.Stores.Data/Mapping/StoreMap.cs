@@ -18,8 +18,6 @@ namespace ExpressSolution.Stores.Data.Mapping
             b.OwnsOne(x => x.Description).Property(x => x.Description).HasMaxLength(500).IsRequired();
             b.OwnsOne(x => x.Description).Property(x => x.ExtendedDescription).HasMaxLength(1500);
 
-            //foraneas 
-            b.HasOne("Category").WithMany().HasForeignKey("IdCategory").OnDelete(DeleteBehavior.Restrict);
 
             b.OwnsMany(x => x.DynamicData, b2 =>
             {
@@ -39,6 +37,16 @@ namespace ExpressSolution.Stores.Data.Mapping
                 Contact.OwnsOne(x => x.ContactData).Property(x => x.LandLineNumber).HasMaxLength(50);
                 Contact.OwnsOne(x => x.ContactData).Property(x => x.MobileNumber).HasMaxLength(50);
                 Contact.OwnsOne(x => x.ContactData).Property(x => x.Name).HasMaxLength(300).IsRequired();
+            });
+
+            //categorias
+            b.OwnsMany(x => x.StoreCategories, StoreCategory => {
+                StoreCategory.HasKey(x => new { x.CategoryId, x.StoreId});
+                StoreCategory.Property(x => x.CategoryId).HasMaxLength(50);
+                StoreCategory.Property(x => x.StoreId).HasMaxLength(50);
+                StoreCategory.WithOwner().HasForeignKey(x => x.StoreId);
+                StoreCategory.HasOne("Category").WithMany().HasForeignKey("CategoryId").OnDelete(DeleteBehavior.Restrict);
+
             });
 
             //Multimedias
