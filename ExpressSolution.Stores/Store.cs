@@ -165,5 +165,23 @@ namespace ExpressSolution.Stores
             Contacts.Remove(contact);
         }
 
+        /// <summary>
+        /// Agrega una categoria a la tienda
+        /// </summary>
+        /// <param name="categoryId"></param>
+        public MultimediaStore AddMultimedia(string idMultimedia, MultimediaRelevance multimediaRelevance, MultimediaVo multimediaVo)
+        {
+            MultimediaStore multimediaStore = new MultimediaStore()
+            {
+                 Id= idMultimedia,
+                 MultimediaRelevance= multimediaRelevance,
+                 DataMultimedia= multimediaVo with { },
+            };
+
+            Multimedia.Add(multimediaStore);
+
+            return multimediaStore;
+        }
+
     }
 }

@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace ExpressSolution
 {
-    public class MultimediaVo : IValidatedValueObject
+    public record MultimediaVo : IValidatedValueObject
     {
         public MultimediaVo(string name,string mimeType,string urlMultimedia, MultimediaType multimediaType)
         {
-
+            Name = name;
+            MimeType = mimeType;
+            UrlMultimedia = urlMultimedia;
+            MultimediaType = multimediaType;
         }
 
         /// <summary>

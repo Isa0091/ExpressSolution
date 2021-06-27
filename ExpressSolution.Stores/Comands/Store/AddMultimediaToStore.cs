@@ -9,7 +9,14 @@ namespace ExpressSolution.Stores.Comands.Store
 {
     public class AddMultimediaToStore : CommandBase
     {
-        public string Id { get; set; }
+        /// <summary>
+        /// Identificador de la tienda
+        /// </summary>
+        public string StoreId { get; set; }
+        /// <summary>
+        /// Identificadro de la multimedia
+        /// </summary>
+        public string MultimediaId { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -22,6 +29,11 @@ namespace ExpressSolution.Stores.Comands.Store
         /// 
         /// </summary>
         public List<byte> Multimedia { get; set; }
+
+        /// <summary>
+        /// url de la multimedia dependiendo de <see cref="MultimediaType"/>
+        /// </summary>
+        public string UrlMultimedia { get; set; }
         /// <summary>
         /// 
         /// </summary>
