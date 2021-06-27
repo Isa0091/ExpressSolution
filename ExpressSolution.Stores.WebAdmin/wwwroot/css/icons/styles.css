@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "excel-repuestos";
+  src:url("fonts/excel-repuestos.eot");
+  src:url("fonts/excel-repuestos.eot?#iefix") format("embedded-opentype"),
+    url("fonts/excel-repuestos.woff") format("woff"),
+    url("fonts/excel-repuestos.ttf") format("truetype"),
+    url("fonts/excel-repuestos.svg#excel-repuestos") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "excel-repuestos" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "excel-repuestos" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-menu:before {
+  content: "\3d";
+}
+.icon-facebook:before {
+  content: "\66";
+}
+.icon-twitter:before {
+  content: "\74";
+}
+.icon-whatsapp:before {
+  content: "\77";
+}
+.icon-placepin:before {
+  content: "\64";
+}
+.icon-left-open:before {
+  content: "\3c";
+}
+.icon-right-open:before {
+  content: "\3e";
+}
+.icon-lupa:before {
+  content: "\51";
+}
+.icon-close:before {
+  content: "\78";
+}
+.icon-filter-results:before {
+  content: "\61";
+}
+.icon-email:before {
+  content: "\62";
+}
+.icon-call:before {
+  content: "\63";
+}
+.icon-down-open:before {
+  content: "\67";
+}
+.icon-up-open:before {
+  content: "\65";
+}
+.icon-question:before {
+  content: "\3f";
+}
+.icon-shopping-cart:before {
+  content: "\69";
+}
+.icon-user-outline:before {
+  content: "\55";
+}
+.icon-plus:before {
+  content: "\2b";
+}
+.icon-minus:before {
+  content: "\2d";
+}
+.icon-phone:before {
+  content: "\68";
+}
+.icon-edit:before {
+  content: "\6a";
+}
+.icon-check-mark:before {
+  content: "\59";
+}
+.icon-circle:before {
+  content: "\4f";
+}
+.icon-menu-2:before {
+  content: "\3a";
+}
+.icon-add-cart:before {
+  content: "\76";
+}

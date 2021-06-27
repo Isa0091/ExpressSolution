@@ -14,8 +14,7 @@ namespace ExpressSolution.Stores.Handlers.Queries.Category
     class GetCategoryByIdHandler : IRequestHandler<GetCategoryById,ExpressSolution.Stores.Category>
     {
         private readonly ICategoryRepo _categoryRepo;
-
-        GetCategoryByIdHandler(
+        public GetCategoryByIdHandler(
             ICategoryRepo categoryRepo)
         {
             _categoryRepo = categoryRepo;

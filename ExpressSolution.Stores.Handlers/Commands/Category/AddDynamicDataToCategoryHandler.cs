@@ -15,7 +15,7 @@ namespace ExpressSolution.Stores.Handlers.Commands.Category
     {
         private readonly ICategoryRepo _categoryRepo;
 
-        AddDynamicDataToCategoryHandler(
+        public AddDynamicDataToCategoryHandler(
             ICategoryRepo categoryRepo)
         {
             _categoryRepo = categoryRepo;

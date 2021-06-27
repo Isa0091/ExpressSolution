@@ -16,7 +16,7 @@ namespace ExpressSolution.Stores.Handlers.Commands.Category
         private readonly IManagerFileEasyAzureProvider _managerFileEasyAzureProvider;
         private readonly ICategoryRepo _categoryRepo;
 
-        CreateCategoryHandler(
+        public CreateCategoryHandler(
             IManagerFileEasyAzureProvider managerFileEasyAzureProvider,
             ICategoryRepo categoryRepo)
         {

@@ -1,48 +1,245 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Security.Claims
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration configuration
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ExpressSolution.Stores.WebAdmin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Econoparts - @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
+
+    <link rel="stylesheet" href="~/css/plugins/slick/slick.css" />
+    <link rel="stylesheet" href="~/css/plugins/slick/slick-theme.css" />
+    <link rel="stylesheet" href="~/css/plugins/chosen/chosen.min.css" />
+    <link rel="stylesheet" href="~/css/plugins/fancybox/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="~/css/icons/styles.css" />
+    @*<link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css" />*@
+    <link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert2.css" />
+    <link rel="stylesheet" href="~/css/plugins/datapicker/datepicker.css" />
+    <link rel="stylesheet" href="~/css/plugins/nestable/nestable.css" />
+    <link rel="stylesheet" href="~/css/plugins/multiselect/bootstrap-multiselect.css" />
+    @*<link rel="stylesheet" href="~/css/plugins/nestable/nestable-cust.css" />*@
+    <link rel="stylesheet" href="~/css/toastr/toastr.min.css" />
+    <link href="~/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="~/css/plugins/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/css/plugins/jsonViewer/jjsonviewer.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ExpressSolution.Stores.WebAdmin</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <div id="wrapper">
+
+        <!-- Contenedor Principal Izquierdo -->
+        <nav class="navbar-default navbar-static-side">
+            <div class="sidebar-collapse">
+
+                <ul class="nav metismenu" id="side-menu">
+
+                    <!-- Logo + Titulo del Sistema -->
+                    <li class="nav-header">
+                        <div class="profile-element">
+
+                            <!-- Logo cuando el panel esta completo -->
+                            <div class="logo">
+                                <a asp-controller="Home">
+                                    <img src="~/img/logo.png" />
+                                </a>
+                            </div>
+                            @*<h4>SR Domicilio</h4>*@
+                            @*<h4>@User.Claims.First(x => x.Type == ClaimTypes.GivenName ).Value @User.Claims.First(x => x.Type == ClaimTypes.Surname).Value</h4>*@
+                        </div>
+
+                        <!-- Logo cuando el panel esta minimizado -->
+                        <div class="logo-element">
+                            <a asp-controller="Home"><img src="~/img/logo-icon.png" style="height:40px;" /></a>
+                        </div>
+                    </li>
+
+                    <!-- Menú Principal / Lista de items -->
+                    <!-- Para mostrar el item del menú activo, solo es necesario agregar la clase active al li -->
+                    <!-- Para mostrar un submenu es recomendable mostrar un icono de flecha a la derecha, por lo que se agrega un tag <span class="fa arrow"></span> dentro del tag <a> -->
+                    <!-- Para mostrar un icono al lado del texto, es necesario usar el tag <i> seguido de la clase fa + la clase del icono a mostrar.
+                    Estos iconos son vectores, la cual son sacados de la tipografia Font Awsome - https://fortawesome.github.io/Font-Awesome/icons/ -->
+                    <!-- Helper para Menu del Nuevo Diseño  -->
+                    @*@Html.menuNuevoFormato((string)ViewBag.mnuEncabezado, (int)ViewBag.mnuRootSubMenu, (int)ViewBag.mnuMenuActivo)*@
+                    @*<li class=""><a asp-controller="Marca" asp-action="Index"><i class="fa fa-copyright"></i> <span class="nav-label">Marcas</span></a></li>
+                        <li class=""><a asp-controller="Zonas" asp-action="Index"><i class="fa fa-globe"></i> <span class="nav-label">Zonas</span></a></li>
+                        <li class=""><a asp-controller="Proveedores" asp-action="Index"><i class="fa fa-truck"></i> <span class="nav-label">Proveedores</span></a></li>
+                        <li class=""><a asp-controller="Tienda" asp-action="Index"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Tiendas</span></a></li>
+                        <li class=""><a asp-controller="Categoria" asp-action="Index"><i class="fa fa-list"></i> <span class="nav-label">Categorías</span></a></li>
+                        <li class=""><a asp-controller="Producto" asp-action="Index"><i class="fa fa-shopping-basket"></i> <span class="nav-label">Productos</span></a></li>*@
+
+                    <li class="" seg-accion="Index" seg-controller="Cursos">
+                        <a asp-controller="Cursos" asp-action="Index" title="Cursos">
+                            <i class="fa fa-flag"></i><span class="nav-label"> Cursos</span>
+                        </a>
+                    </li>
+                    <li class="" seg-accion="Index" seg-controller="Solicitudes" title="Solicitudes">
+                        <a asp-controller="Solicitudes" asp-action="Index">
+                            <i class="fa fa-list"></i><span class="nav-label"> Solicitudes</span>
+                        </a>
+                    </li>
+                    <li seg-accion="Index" seg-controller="Clientes">
+                        <a  asp-controller="Clientes" asp-action="Index">
+                            <i class="fa fa-list"></i><span class="nav-label"> Clientes</span>
+                        </a>
+                    </li>
+                    <li class="" seg-accion="Index" seg-controller="Newsletter" title="Newsletter">
+                        <a asp-controller="Newsletter" asp-action="Index">
+                            <i class="fa fa-list"></i><span class="nav-label">Newsletter</span>
+                        </a>
+                    </li>    
+                    <li class="" seg-accion="Index" seg-controller="Puntos" title="Carga de puntos">
+
+                        <a href="#">
+                            <span class="fa arrow"></span>
+                            <i class="fa fa-list"></i><span class="nav-label">Puntos cliente</span>
+                        </a>
+
+                        <ul class="nav nav-second-level">
+                            <li class="" seg-accion="Index" seg-controller="Puntos" title="Lista de clientes">
+                                <a asp-controller="Puntos" asp-action="Index">
+                                    <i class="fa fa-list"></i><span class="nav-label">Listado</span>
+                                </a>
+                            </li>
+                            <li class="" seg-accion="CargaPuntos" seg-controller="Puntos" title="Cargar puntos">
+                                <a asp-controller="Puntos" asp-action="CargaPuntos">
+                                    <i class="fa fa-upload"></i><span class="nav-label">Cargar puntos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    @*<li class="" seg-accion="Index" seg-controller="Claims" title="Carga de claims">
+
+                        <a href="#">
+                            <span class="fa arrow"></span>
+                            <i class="fa fa-list"></i><span class="nav-label">Claims</span>
+                        </a>
+
+                        <ul class="nav nav-second-level">
+                            <li class="" seg-accion="Index" seg-controller="ComisionRate" title="Lista de claims">
+                                <a asp-controller="Claims" asp-action="Index">
+                                    <i class="fa fa-list"></i><span class="nav-label">Listado</span>
+                                </a>
+                            </li>
+                            <li class="" seg-accion="Index" seg-controller="ComisionRate" title="Nuevo claim">
+                                <a asp-controller="Claims" asp-action="DetalleClaim">
+                                    <i class="fa fa-list"></i><span class="nav-label">Agregar claim</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>*@
+                  
+
+                </ul>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+        <!-- Contenedor Principal - Navegacion superior, Header titulos, Contenido, Footer -->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!-- Navegación superior -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+                    <!-- Botón para minimizar panel izquierdo + Barra de búsqueda -->
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <!-- -->
+                    <!-- Lista de items -->
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">
+                                @User.Identity.Name
+                            </span>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i class="fa fa-bars"></i>  </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="@configuration["urlCambiarPassOauth"]" target="_blank">Cambiar Contraseña</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Logout", "AdministracionCuenta")">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- -->
+
+                </nav>
+            </div>
+            <!-- -->
+            <!-- Contenido de la views-->
             @RenderBody()
-        </main>
+            <!-- -->
+            <!-- Modal Forms -->
+            <div class="modal inmodal fade" id="modal-forms" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-md" id="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="modal-title"></h4>
+                        </div>
+                        <div id="modal-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- -->
+            <!-- Footer -->
+            <div class="footer">
+                <div class="pull-right">
+                    Econoparts &copy; @DateTime.Now.Year
+                </div>
+                <div>
+                    <strong> Econoparts</strong>
+                </div>
+            </div>
+            <!-- -->
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ExpressSolution.Stores.WebAdmin - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/jquery-2.1.4.min.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/inspinia.js"></script>
+
+    <script src="~/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/js/plugins/slick/slick.min.js"></script>
+    <script src="~/js/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/js/plugins/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    @*<script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
+    <script src="~/js/plugins/sweetalert/sweetalert2.js"></script>
+    <script src="~/js/plugins/nestable/jquery.nestable.js"></script>
+
+    <script src="~/js/main.js"></script>
+    <script src="~/js/CustomLibrerias/jquery.history.js"></script>
+    <script src="~/js/CustomLibrerias/BitworksAjaxNavigation.js"></script>
+    <script src="~/js/ventanas/ventanas.js"></script>
+    <script src="~/js/CustomLibrerias/customBitworks.js"></script>
+    <script src="~/js/toastr/toastr.min.js"></script>
+    <script src="~/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/js/plugins/nestable/jquery.nestable.js"></script>
+    <script src="~/js/plugins/select2/select2.full.min.js"></script>
+    <script src="~/js/plugins/jsonViewer/jjsonviewer.js"></script>
+    <script src="~/js/plugins/multiselect/bootstrap-multiselect.js"></script>
+    <script src="~/js/plugins/dateformat/jquery-dateformat.min.js"></script>
+    <script src="~/js/plugins/showpassword/bootstrap-show-password.js"></script>
+    @RenderSection("scripts", required: false)
+
 </body>
 </html>

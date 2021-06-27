@@ -15,7 +15,7 @@ namespace ExpressSolution.Stores.Handlers.Commands.Category
     {
         private readonly ICategoryRepo _categoryRepo;
 
-        ActiveCategoryHandler(
+        public ActiveCategoryHandler(
             ICategoryRepo categoryRepo)
         {
             _categoryRepo = categoryRepo;

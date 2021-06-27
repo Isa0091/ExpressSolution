@@ -14,8 +14,7 @@ namespace ExpressSolution.Stores.Handlers.Queries.Category
     class GetCategoryPagedHandler : IRequestHandler<GetCategoryPaged, PagingOutputDto<ExpressSolution.Stores.Category>>
     {
         private readonly ICategoryRepo _categoryRepo;
-
-        GetCategoryPagedHandler(
+        public  GetCategoryPagedHandler(
             ICategoryRepo categoryRepo)
         {
             _categoryRepo = categoryRepo;
