@@ -73,7 +73,7 @@
                         <li class=""><a asp-controller="Categoria" asp-action="Index"><i class="fa fa-list"></i> <span class="nav-label">Categorías</span></a></li>
                         <li class=""><a asp-controller="Producto" asp-action="Index"><i class="fa fa-shopping-basket"></i> <span class="nav-label">Productos</span></a></li>*@
 
-                    <li class="" seg-accion="Index" seg-controller="Cursos">
+                    @*<li class="" seg-accion="Index" seg-controller="Cursos">
                         <a asp-controller="Cursos" asp-action="Index" title="Cursos">
                             <i class="fa fa-flag"></i><span class="nav-label"> Cursos</span>
                         </a>
@@ -92,23 +92,23 @@
                         <a asp-controller="Newsletter" asp-action="Index">
                             <i class="fa fa-list"></i><span class="nav-label">Newsletter</span>
                         </a>
-                    </li>    
-                    <li class="" seg-accion="Index" seg-controller="Puntos" title="Carga de puntos">
+                    </li>*@    
+                    <li class="" title="Categorias">
 
                         <a href="#">
                             <span class="fa arrow"></span>
-                            <i class="fa fa-list"></i><span class="nav-label">Puntos cliente</span>
+                            <i class="fa fa-list"></i><span class="nav-label">Categorias</span>
                         </a>
 
                         <ul class="nav nav-second-level">
-                            <li class="" seg-accion="Index" seg-controller="Puntos" title="Lista de clientes">
-                                <a asp-controller="Puntos" asp-action="Index">
+                            <li class=""  title="Lista de categorias">
+                                <a asp-controller="Category" asp-action="Index">
                                     <i class="fa fa-list"></i><span class="nav-label">Listado</span>
                                 </a>
                             </li>
-                            <li class="" seg-accion="CargaPuntos" seg-controller="Puntos" title="Cargar puntos">
-                                <a asp-controller="Puntos" asp-action="CargaPuntos">
-                                    <i class="fa fa-upload"></i><span class="nav-label">Cargar puntos</span>
+                            <li class=""  title="Nueva Categoria">
+                                <a asp-controller="Category" asp-action="Detail">
+                                    <i class="fa fa-upload"></i><span class="nav-label">Nueva</span>
                                 </a>
                             </li>
                         </ul>
