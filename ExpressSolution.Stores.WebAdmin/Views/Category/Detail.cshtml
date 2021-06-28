@@ -15,92 +15,151 @@
             <div class="ibox">
                 <div class="ibox-title">Detalle</div>
                 <div class="ibox-content">
-                    <form method="post" enctype="multipart/form-data">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <input type="hidden" asp-for="CategoryInputVm.Id"  />
 
-                        <div class="row">
+                    <div class="row">
+                        <div class="col-md-12 col-sm12">
+                            <div class="tabs-container">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab-3" aria-expanded="true">Datos generales</a></li>
+                                    @if (string.IsNullOrEmpty(Model.CategoryInputVm.Id) == false)
+                                    {
+                                        <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">Datos Adicionales</a></li>
+                                    }
 
-                            @if (string.IsNullOrEmpty(Model.CategoryInputVm.Id) == false && Model.MultimediaType== ExpressSolution.MultimediaType.Image)
-                            {
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-3" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <form method="post" enctype="multipart/form-data">
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                <input type="hidden" asp-for="CategoryInputVm.Id" />
 
-                                <div class="col-md-12 center-block">
-                                    <img src="@Model.UrlMultimedia" width="50">
-                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="form-group">
 
-                            }
+                                                            @if (string.IsNullOrEmpty(Model.CategoryInputVm.Id) == false && Model.MultimediaType == ExpressSolution.MultimediaType.Image)
+                                                            {
+                                                                <img src="@Model.UrlMultimedia" width="200">
+                                                            }
 
-                            <div class="col-md-12 text-center">
-                                <div class="form-group">
-                                    <label asp-for="CategoryInputVm.Multimedia">Multimedia</label>
-                                    <input asp-for="CategoryInputVm.Multimedia" type="file" class="form-control" width="40" />
-                                    <span asp-validation-for="CategoryInputVm.Multimedia" class="text-danger small form-text"></span>
-                                    <br />
+                                                            <input asp-for="CategoryInputVm.Multimedia" type="file" class="form-control" width="200" />
+                                                            <span asp-validation-for="CategoryInputVm.Multimedia" class="text-danger small form-text"></span>
+                                                            <br />
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+                                                        <label asp-for="CategoryInputVm.Name">Nombre</label>
+                                                        <input asp-for="CategoryInputVm.Name" class="form-control" />
+                                                        <span asp-validation-for="CategoryInputVm.Name" class="text-danger small form-text"></span>
+                                                        <br />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label asp-for="CategoryInputVm.Description">Descripcion</label>
+                                                        <input asp-for="CategoryInputVm.Description" class="form-control" />
+                                                        <span asp-validation-for="CategoryInputVm.Description" class="text-danger small form-text"></span>
+                                                        <br />
+                                                    </div>
+                                                    @if (string.IsNullOrEmpty(Model.CategoryInputVm.Id) == false)
+                                                    {
+                                                        <div class="col-md-6">
+                                                            <label asp-for="DateCreated">Fecha creacion</label>
+                                                            <input asp-for="DateCreated" disabled class="form-control" name="DateCreated" />
+                                                            <br />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <input asp-for="Active" type="checkbox" name="Activo" />
+                                                            <label asp-for="Active">Activo</label>
+                                                            <br />
+                                                        </div>
+
+                                                    }
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label asp-for="CategoryInputVm.ExtendedDescription">Extended Descripcion</label>
+                                                                @Html.TextAreaFor(x => x.CategoryInputVm.ExtendedDescription, new { @class = "editorDescripcion form-control", rows = "6", cols = "50" })
+                                                            </div>
+                                                            <br />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <br />
+                                                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Guardar</button>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                    <div id="tab-4" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                @if (string.IsNullOrEmpty(Model.CategoryInputVm.Id) == false)
+                                                {
+                                                    <div class="row" style="margin:15px!important">
+                                                        <div class="form-group">
+                                                            <a href="#" class="btn btn-white">
+                                                                <i class="fa fa-plus"></i> Nuevo DatoAdicional
+                                                            </a>
+                                                        </div>
+                                                        <br />
+                                                        <div class="">
+                                                            <table class="table border-bottom border-border">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Nombre</th>
+                                                                        <th>Valor</th>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var d in Model.DynamicData)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@d.DataName</td>
+                                                                            <td>@d.DataValue</td>
+                                                                            <td>
+                                                                                <a href="#" data-nombre="@d.DataName" data-valor="@d.DataValue">Editar</a>
+
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="@Url.Action("DeleteData", "Clients", new { CategoryId = Model.CategoryInputVm.Id, name = d.DataName })">Eliminar</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
                                 </div>
-                               
                             </div>
-
                         </div>
-                            <div class="row">
-
-                                <div class="col-md-6">
-                                    <label asp-for="CategoryInputVm.Name">Nombre</label>
-                                    <input asp-for="CategoryInputVm.Name" class="form-control" />
-                                    <span asp-validation-for="CategoryInputVm.Name" class="text-danger small form-text"></span>
-                                    <br />
-                                </div>
-                                <div class="col-md-6">
-                                    <label asp-for="CategoryInputVm.Description">Descripcion</label>
-                                    <input asp-for="CategoryInputVm.Description" class="form-control"  />
-                                    <span asp-validation-for="CategoryInputVm.Description" class="text-danger small form-text"></span>
-                                     <br />
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label asp-for="CategoryInputVm.ExtendedDescription">Extended Descripcion</label>
-                                    <div class="editor-texto">
-                                        @Html.TextAreaFor(x => x.CategoryInputVm.ExtendedDescription, new { @class = "editorDescripcion" })
-                                    </div>
-
-                                    <span asp-validation-for="CategoryInputVm.ExtendedDescription" class="text-danger small form-text"></span>
-                                    <br />
-                                </div>
-
-                                @if (string.IsNullOrEmpty(Model.CategoryInputVm.Id) == false)
-                                {
-                                    <div class="col-md-6">
-                                        <label asp-for="DateCreated">Fecha creacion</label>
-                                        <input asp-for="DateCreated" disabled class="form-control" name="DateCreated" />
-                                        <br />
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <input asp-for="Active" type="checkbox" name="Activo" />
-                                        <label asp-for="Active">Activo</label>
-                                        <br />
-                                    </div>
-
-                                }
-
-
-                                <div class="col-md-4">
-                                    <br />
-                                    <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Guardar</button>
-                                </div>
-                            </div>
-
-                            <br />
-                            <div class="row">
-
-                            </div>
-                            <br />
-                        </form>
+                    </div>
 
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 @section Scripts{
