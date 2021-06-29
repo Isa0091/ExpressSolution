@@ -73,6 +73,7 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(string id)
         {
+            ViewBag.success = TempData["success"];
             DetailCategoryOutputVm detailCategory = await GetCategoryOutput(id);
             return View(detailCategory);
         }
@@ -133,7 +134,7 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
                 await _mediator.Send(editCategory);
             }
 
-            TempData["success"] = "Datos guardad correctamente";
+            TempData["success"] = "Datos generales guardados correctamente";
             return RedirectToAction("Detail", new { id = categoryId });
         }
 
@@ -148,9 +149,25 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
             await _mediator.Send(command);
 
-            TempData["success"] = "Dato guardado exitosamente";
+            TempData["success"] = "Dato adicional guardado exitosamente";
 
             return RedirectToAction("Detail", new { id = dynamicDataCategory.CategoryId });
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteData(string categoryId, string name)
+        {
+            RemoveDynamicDataFromCategory command = new RemoveDynamicDataFromCategory
+            {
+                CategoryId = categoryId,
+                DataName = name
+            };
+
+            await _mediator.Send(command);
+            TempData["success"] = "Dato eliminado exitosamente";
+
+            return RedirectToAction("Detail", new { id = categoryId });
         }
 
         #region Metodos privados

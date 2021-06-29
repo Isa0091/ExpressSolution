@@ -110,7 +110,7 @@
                                                 {
                                                     <div class="row" style="margin:15px!important">
                                                         <div class="form-group">
-                                                            <a href="#" class="btn btn-white">
+                                                            <a href="#" class="btn btn-white addDataAdicional" >
                                                                 <i class="fa fa-plus"></i> Nuevo DatoAdicional
                                                             </a>
                                                         </div>
@@ -132,11 +132,11 @@
                                                                             <td>@d.DataName</td>
                                                                             <td>@d.DataValue</td>
                                                                             <td>
-                                                                                <a href="#" data-nombre="@d.DataName" data-valor="@d.DataValue">Editar</a>
+                                                                                <a href="#" class="editDataAdicional btn btn-white" data-nombre="@d.DataName" data-valor="@d.DataValue">Editar</a>
 
                                                                             </td>
                                                                             <td>
-                                                                                <a href="@Url.Action("DeleteData", "Clients", new { CategoryId = Model.CategoryInputVm.Id, name = d.DataName })">Eliminar</a>
+                                                                                <a  class="deleteData btn btn-white" href="@Url.Action("DeleteData", "Category", new { categoryId = Model.CategoryInputVm.Id, name = d.DataName })">Eliminar</a>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -159,8 +159,45 @@
         </div>
     </div>
 </div>
-
-
+<div class="modal inmodal fade" id="modal-detalle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title">Detalle de dato adicional</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="SaveDynamicData" asp-controller="Category" method="post" >
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" asp-for="DynamicDataCategory.CategoryId" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="DynamicDataCategory.DataName">Nombre</label>
+                                <input asp-for="DynamicDataCategory.DataName" class="form-control" />
+                                <span asp-validation-for="DynamicDataCategory.DataName" class="text-danger small form-text"></span>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="DynamicDataCategory.DataValue">Valor</label>
+                                <input asp-for="DynamicDataCategory.DataValue" class="form-control" />
+                                <span asp-validation-for="DynamicDataCategory.DataValue" class="text-danger small form-text"></span>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar</button>
+                        <button type="button" class="btn btn-default btn-white" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.success" id="success" />
 
 @section Scripts{
 
@@ -169,7 +206,50 @@
     <script>
         $(document).ready(function () {
 
+            var success = $("#success").val()
+            if (success != "")
+                swal("Exito", success, "success");
+
             $('.editorDescripcion').summernote();
+
+            $(document).on("click", ".editDataAdicional", function (e) {
+                e.preventDefault();
+
+                var dato = $(this).data('nombre');
+                var valor = $(this).data('valor');
+
+                $("#DynamicDataCategory_DataName").val(dato);
+                $("#DynamicDataCategory_DataName").prop('readonly', true);
+                $("#DynamicDataCategory_DataValue").val(valor);
+                $("#modal-detalle").modal();
+            });
+            $(document).on("click", ".addDataAdicional", function (e) {
+                e.preventDefault();
+
+                $("#DynamicDataCategory_DataName").prop('readonly', false);
+                $("#DynamicDataCategory_DataName").val('');
+                $("#DynamicDataCategory_DataValue").val('');
+                $("#modal-detalle").modal();
+
+            });
+
+            $(document).on("click", ".deleteData", function (e) {
+                e.preventDefault();
+                var url = $(this).attr("href"); Swal.fire({
+                    title: "Está seguro?",
+                    text: "El dato se eliminará de forma permanente",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Si, eliminarlo",
+                    cancelButtonText: "No, cancelar",
+                }).then((result) => {
+                    if (result.value) {
+                        window.location = url;
+                    }
+                })
+            });
 
         });
     </script>
