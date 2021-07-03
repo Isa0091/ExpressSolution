@@ -65,36 +65,36 @@
                     <!-- Para mostrar el item del menú activo, solo es necesario agregar la clase active al li -->
                     <!-- Para mostrar un submenu es recomendable mostrar un icono de flecha a la derecha, por lo que se agrega un tag <span class="fa arrow"></span> dentro del tag <a> -->
                     <!-- Para mostrar un icono al lado del texto, es necesario usar el tag <i> seguido de la clase fa + la clase del icono a mostrar.
-                    Estos iconos son vectores, la cual son sacados de la tipografia Font Awsome - https://fortawesome.github.io/Font-Awesome/icons/ -->
+    Estos iconos son vectores, la cual son sacados de la tipografia Font Awsome - https://fortawesome.github.io/Font-Awesome/icons/ -->
                     <!-- Helper para Menu del Nuevo Diseño  -->
                     @*@Html.menuNuevoFormato((string)ViewBag.mnuEncabezado, (int)ViewBag.mnuRootSubMenu, (int)ViewBag.mnuMenuActivo)*@
                     @*<li class=""><a asp-controller="Marca" asp-action="Index"><i class="fa fa-copyright"></i> <span class="nav-label">Marcas</span></a></li>
-                        <li class=""><a asp-controller="Zonas" asp-action="Index"><i class="fa fa-globe"></i> <span class="nav-label">Zonas</span></a></li>
-                        <li class=""><a asp-controller="Proveedores" asp-action="Index"><i class="fa fa-truck"></i> <span class="nav-label">Proveedores</span></a></li>
-                        <li class=""><a asp-controller="Tienda" asp-action="Index"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Tiendas</span></a></li>
-                        <li class=""><a asp-controller="Categoria" asp-action="Index"><i class="fa fa-list"></i> <span class="nav-label">Categorías</span></a></li>
-                        <li class=""><a asp-controller="Producto" asp-action="Index"><i class="fa fa-shopping-basket"></i> <span class="nav-label">Productos</span></a></li>*@
+        <li class=""><a asp-controller="Zonas" asp-action="Index"><i class="fa fa-globe"></i> <span class="nav-label">Zonas</span></a></li>
+        <li class=""><a asp-controller="Proveedores" asp-action="Index"><i class="fa fa-truck"></i> <span class="nav-label">Proveedores</span></a></li>
+        <li class=""><a asp-controller="Tienda" asp-action="Index"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Tiendas</span></a></li>
+        <li class=""><a asp-controller="Categoria" asp-action="Index"><i class="fa fa-list"></i> <span class="nav-label">Categorías</span></a></li>
+        <li class=""><a asp-controller="Producto" asp-action="Index"><i class="fa fa-shopping-basket"></i> <span class="nav-label">Productos</span></a></li>*@
 
                     @*<li class="" seg-accion="Index" seg-controller="Cursos">
-                        <a asp-controller="Cursos" asp-action="Index" title="Cursos">
-                            <i class="fa fa-flag"></i><span class="nav-label"> Cursos</span>
-                        </a>
-                    </li>
-                    <li class="" seg-accion="Index" seg-controller="Solicitudes" title="Solicitudes">
-                        <a asp-controller="Solicitudes" asp-action="Index">
-                            <i class="fa fa-list"></i><span class="nav-label"> Solicitudes</span>
-                        </a>
-                    </li>
-                    <li seg-accion="Index" seg-controller="Clientes">
-                        <a  asp-controller="Clientes" asp-action="Index">
-                            <i class="fa fa-list"></i><span class="nav-label"> Clientes</span>
-                        </a>
-                    </li>
-                    <li class="" seg-accion="Index" seg-controller="Newsletter" title="Newsletter">
-                        <a asp-controller="Newsletter" asp-action="Index">
-                            <i class="fa fa-list"></i><span class="nav-label">Newsletter</span>
-                        </a>
-                    </li>*@    
+            <a asp-controller="Cursos" asp-action="Index" title="Cursos">
+                <i class="fa fa-flag"></i><span class="nav-label"> Cursos</span>
+            </a>
+        </li>
+        <li class="" seg-accion="Index" seg-controller="Solicitudes" title="Solicitudes">
+            <a asp-controller="Solicitudes" asp-action="Index">
+                <i class="fa fa-list"></i><span class="nav-label"> Solicitudes</span>
+            </a>
+        </li>
+        <li seg-accion="Index" seg-controller="Clientes">
+            <a  asp-controller="Clientes" asp-action="Index">
+                <i class="fa fa-list"></i><span class="nav-label"> Clientes</span>
+            </a>
+        </li>
+        <li class="" seg-accion="Index" seg-controller="Newsletter" title="Newsletter">
+            <a asp-controller="Newsletter" asp-action="Index">
+                <i class="fa fa-list"></i><span class="nav-label">Newsletter</span>
+            </a>
+        </li>*@
                     <li class="" title="Categorias">
 
                         <a href="#">
@@ -103,13 +103,34 @@
                         </a>
 
                         <ul class="nav nav-second-level">
-                            <li class=""  title="Lista de categorias">
+                            <li class="" title="Lista de categorias">
                                 <a asp-controller="Category" asp-action="Index">
                                     <i class="fa fa-list"></i><span class="nav-label">Listado</span>
                                 </a>
                             </li>
-                            <li class=""  title="Nueva Categoria">
+                            <li class="" title="Nueva Categoria">
                                 <a asp-controller="Category" asp-action="Detail" asp-route-id="">
+                                    <i class="fa fa-upload"></i><span class="nav-label">Nueva</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="" title="tiendas">
+
+                        <a href="#">
+                            <span class="fa arrow"></span>
+                            <i class="fa fa-list"></i><span class="nav-label">Tiendas</span>
+                        </a>
+
+                        <ul class="nav nav-second-level">
+                            <li class="" title="Lista de categorias">
+                                <a asp-controller="Store" asp-action="Index">
+                                    <i class="fa fa-list"></i><span class="nav-label">Listado</span>
+                                </a>
+                            </li>
+                            <li class="" title="Nueva tienda">
+                                <a asp-controller="Store" asp-action="Detail" asp-route-id="">
                                     <i class="fa fa-upload"></i><span class="nav-label">Nueva</span>
                                 </a>
                             </li>
@@ -118,25 +139,25 @@
 
                     @*<li class="" seg-accion="Index" seg-controller="Claims" title="Carga de claims">
 
-                        <a href="#">
-                            <span class="fa arrow"></span>
-                            <i class="fa fa-list"></i><span class="nav-label">Claims</span>
-                        </a>
+            <a href="#">
+                <span class="fa arrow"></span>
+                <i class="fa fa-list"></i><span class="nav-label">Claims</span>
+            </a>
 
-                        <ul class="nav nav-second-level">
-                            <li class="" seg-accion="Index" seg-controller="ComisionRate" title="Lista de claims">
-                                <a asp-controller="Claims" asp-action="Index">
-                                    <i class="fa fa-list"></i><span class="nav-label">Listado</span>
-                                </a>
-                            </li>
-                            <li class="" seg-accion="Index" seg-controller="ComisionRate" title="Nuevo claim">
-                                <a asp-controller="Claims" asp-action="DetalleClaim">
-                                    <i class="fa fa-list"></i><span class="nav-label">Agregar claim</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>*@
-                  
+            <ul class="nav nav-second-level">
+                <li class="" seg-accion="Index" seg-controller="ComisionRate" title="Lista de claims">
+                    <a asp-controller="Claims" asp-action="Index">
+                        <i class="fa fa-list"></i><span class="nav-label">Listado</span>
+                    </a>
+                </li>
+                <li class="" seg-accion="Index" seg-controller="ComisionRate" title="Nuevo claim">
+                    <a asp-controller="Claims" asp-action="DetalleClaim">
+                        <i class="fa fa-list"></i><span class="nav-label">Agregar claim</span>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+
 
                 </ul>
             </div>
