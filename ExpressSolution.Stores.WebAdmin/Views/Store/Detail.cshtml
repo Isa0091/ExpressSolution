@@ -62,6 +62,12 @@
                                                             <br />
                                                         </div>
 
+                                                        <div class="col-md-6">
+                                                            <label asp-for="Active">Categorias</label>
+                                                            <label asp-for="Active">@string.Join(",", Model.Categories)</label> <a href="@Url.Action("StoreCategories","Store")" data-id="@Model.StoreInput.Id">Modificar</a>
+                                                            <br />
+                                                        </div>
+
                                                     }
 
                                                     <div class="row">

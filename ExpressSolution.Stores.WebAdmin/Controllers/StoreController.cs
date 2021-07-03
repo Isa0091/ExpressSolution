@@ -74,6 +74,33 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             return View(detailStore);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> StoreCategories(string storeId)
+        {
+            List<CategoryStoreInputVm> categoryStores = new List<CategoryStoreInputVm>();
+            Store store = await _mediator.Send(new GetStoreById()
+            {
+                StoreId = storeId
+            });
+
+            List<Category> categories = await _mediator.Send(new GetCategory());
+            List<string> idCategoriesStore = store.StoreCategories.Select(z => z.CategoryId).ToList();
+
+            foreach(Category category in categories)
+            {
+                categoryStores.Add(new CategoryStoreInputVm()
+                {
+                     Id= category.Id,
+                     Name= category.Name,
+                     Selected= idCategoriesStore.Contains(category.Id)
+                });
+            }
+
+            string html = await this.RenderViewAsync("_StoreCategories", categoryStores);
+            return Json(new { existoso = true, html = html });
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> Detail(StoreInputVm storeInput)
         {
