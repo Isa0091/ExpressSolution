@@ -4,7 +4,7 @@ using ExpressSolution.Stores.Queries.Category;
 using ExpressSolution.Stores.WebAdmin.Extensions;
 using ExpressSolution.Stores.WebAdmin.Models.Category;
 using ExpressSolution.Stores.WebAdmin.Models.Category.Inputs;
-using ExpressSolution.Stores.WebAdmin.Models.Category.Output;
+using ExpressSolution.Stores.WebAdmin.Models.Category.Outputs;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

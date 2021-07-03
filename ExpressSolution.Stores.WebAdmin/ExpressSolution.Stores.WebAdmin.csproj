@@ -38,6 +38,11 @@
     <ProjectReference Include="..\ExpressSolution\ExpressSolution.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Store\Inputs\" />
+    <Folder Include="Models\Store\Outputs\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

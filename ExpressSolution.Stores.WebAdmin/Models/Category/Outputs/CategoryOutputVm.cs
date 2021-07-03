@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExpressSolution.Stores.WebAdmin.Models.Category.Output
+namespace ExpressSolution.Stores.WebAdmin.Models.Category.Outputs
 {
     public class CategoryOutputVm
     {
