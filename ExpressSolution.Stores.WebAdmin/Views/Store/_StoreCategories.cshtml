@@ -4,15 +4,15 @@
     Layout = null;
 } 
 
-<form  method="post" id="categoriesStore">
+<form  method="post" asp-controller="Store" asp-action="StoreCategories" id="categoriesStore">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-md-12" style="margin-bottom:5px!important">
                 <label>Categorias</label>
-
-                <select class="multiple" multiple>
+                <br />
+                <select class="multiple" multiple id="selectCategories">
 
                     @foreach (CategoryStoreInputVm categoryStore in Model)
                     {
@@ -28,14 +28,12 @@
                     }
 
                 </select>
-                <div class="select-custom-content">
-                    <button class="btn-save btn btn-primary btn-sm">Guardar</button>
-                </div>
             </div>
            
         </div>
     </div>
     <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="btn-guarda-categories">Guardar</button>
         <button type="button" class="btn btn-default btn-white" data-dismiss="modal">Cerrar</button>
     </div>
 </form>

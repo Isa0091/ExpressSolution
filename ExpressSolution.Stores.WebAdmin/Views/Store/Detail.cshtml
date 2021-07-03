@@ -1,6 +1,6 @@
 ﻿@model ExpressSolution.Stores.WebAdmin.Models.Store.Outputs.DetailStoreOutputVm
 
-@{ 
+@{
     ViewData["Title"] = "Detail";
 }
 
@@ -63,8 +63,8 @@
                                                         </div>
 
                                                         <div class="col-md-6">
-                                                            <label asp-for="Active">Categorias</label>
-                                                            <label asp-for="Active">@string.Join(",", Model.Categories)</label> <a href="@Url.Action("StoreCategories","Store")" class="categories" data-id="@Model.StoreInput.Id">Modificar</a>
+                                                            <label>Categorias : </label>
+                                                            <labe style="font-weight:bold">@string.Join(",", Model.Categories)</labe> <a href="@Url.Action("StoreCategories","Store")" class="categories btn btn-primary" data-id="@Model.StoreInput.Id">Modificar</a>
                                                             <br />
                                                         </div>
 
@@ -187,11 +187,11 @@
     </div>
 </div>
 
-<div class="modal inmodal fade" id="modal-detalle-categories" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" id="modal-dialog">
+<div class="modal inmodal fade"  id="modal-detalle-categories" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Detalle de categorias</h4>
             </div>
             <div class="modal-body">
@@ -273,7 +273,7 @@
                             $("#categories").html('');
                             $("#categories").html(result.html);
                             $('.multiple').multiselect();
-                           /* $.validator.unobtrusive.parse("#frmguardarsucursal");*/
+                            /* $.validator.unobtrusive.parse("#frmguardarsucursal");*/
                             Bitworks.Ventanas.ocultarLoading();
                             $("#modal-detalle-categories").modal();
 
@@ -287,6 +287,50 @@
                         toastr.error('Error al intentar hacer la peticion recarge la pagina y vuelva a intentarlo')
                     }
                 });
+
+            });
+
+            $(document).on('click', '#btn-guarda-categories', function (e) {
+
+                Bitworks.Ventanas.mostrarLoading();
+                e.preventDefault();
+
+                var storeid = $("#StoreInput_Id").val();
+                var form = $("#categoriesStore");
+
+                var categories = $('#selectCategories option:selected').toArray().map(item => item.value);
+
+                if (categories.length == 0) {
+                    swal("Verifique", "debe seleccionar almenos una categoria", "warning");
+
+                } else {
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'POST',
+                        data: { storeId: storeid, categories: categories },
+                        success: function (result) {
+                            if (result.exitoso) {
+                                swal({
+                                    title: "Éxito",
+                                    text: 'Categorias almacenadas correctamente',
+                                    type: "success"
+                                }, function () {
+                                    location.reload();
+                                });
+
+                                location.reload();
+                            } else {
+                                Bitworks.Ventanas.ocultarLoading();
+                                toastr.error('Error al intentar hacer la peticion recarge la pagina y vuelva a intentarlo')
+                            }
+                        },
+                        error: function (error) {
+                            Bitworks.Ventanas.ocultarLoading();
+                            toastr.error('Error al intentar hacer la peticion recarge la pagina y vuelva a intentarlo')
+                        }
+                    });
+                }
 
             });
         });

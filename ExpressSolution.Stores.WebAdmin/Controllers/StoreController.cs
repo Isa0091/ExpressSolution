@@ -101,11 +101,11 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SetStoreCategories(string storeId, List<string> Categories)
+        [HttpPost]
+        public async Task<IActionResult> StoreCategories(string storeId, List<string> categories)
         {
 
-            return Json(new { existoso = true});
+            return Json(new { exitoso = true});
         }
 
         [HttpPost]
