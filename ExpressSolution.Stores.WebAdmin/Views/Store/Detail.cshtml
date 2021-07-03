@@ -64,7 +64,7 @@
 
                                                         <div class="col-md-6">
                                                             <label asp-for="Active">Categorias</label>
-                                                            <label asp-for="Active">@string.Join(",", Model.Categories)</label> <a href="@Url.Action("StoreCategories","Store")" data-id="@Model.StoreInput.Id">Modificar</a>
+                                                            <label asp-for="Active">@string.Join(",", Model.Categories)</label> <a href="@Url.Action("StoreCategories","Store")" class="categories" data-id="@Model.StoreInput.Id">Modificar</a>
                                                             <br />
                                                         </div>
 
@@ -186,6 +186,23 @@
         </div>
     </div>
 </div>
+
+<div class="modal inmodal fade" id="modal-detalle-categories" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title">Detalle de categorias</h4>
+            </div>
+            <div class="modal-body">
+                <div id="categories">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" value="@ViewBag.success" id="success" />
 
 @section Scripts{
@@ -240,6 +257,37 @@
                 })
             });
 
+
+            $(document).on('click', ".categories", function (e) {
+
+                Bitworks.Ventanas.mostrarLoading();
+                e.preventDefault();
+                var storeid = $(this).data("id");
+
+                $.ajax({
+                    url: $(this).attr('href'),
+                    type: 'GET',
+                    data: { storeId: storeid },
+                    success: function (result) {
+                        if (result.existoso) {
+                            $("#categories").html('');
+                            $("#categories").html(result.html);
+                           /* $.validator.unobtrusive.parse("#frmguardarsucursal");*/
+                            Bitworks.Ventanas.ocultarLoading();
+                            $("modal-detalle-categories").modal();
+
+                        } else {
+                            Bitworks.Ventanas.ocultarLoading();
+                            toastr.error(result.mensaje);
+                        }
+                    },
+                    error: function (error) {
+                        Bitworks.Ventanas.ocultarLoading();
+                        toastr.error('Error al intentar hacer la peticion recarge la pagina y vuelva a intentarlo')
+                    }
+                });
+
+            });
         });
     </script>
 }

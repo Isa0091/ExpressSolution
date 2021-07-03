@@ -101,6 +101,13 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> StoreCategories(string storeId, List<string> Categories)
+        {
+
+            return Json(new { existoso = true});
+        }
+
         [HttpPost]
         public async Task<IActionResult> Detail(StoreInputVm storeInput)
         {
