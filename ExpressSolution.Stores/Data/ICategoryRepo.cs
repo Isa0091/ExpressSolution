@@ -29,5 +29,12 @@ namespace ExpressSolution.Stores.Data
         /// <param name="resultPerPage"></param>
         /// <returns></returns>
         Task<PagingOutputDto<Category>> GetListCategoryPaged(string nameContains, bool? isActive, int pageNumber, int resultPerPage);
+        
+        /// <summary>
+        /// listado de categorias filtrado por ids
+        /// </summary>
+        /// <param name="categoryIds"></param>
+        /// <returns></returns>
+        Task<List<Category>> GetCategoriesByIds(List<string> categoryIds = null);
     }
 }

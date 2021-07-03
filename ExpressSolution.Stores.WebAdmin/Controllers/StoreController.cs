@@ -1,4 +1,5 @@
 ﻿using ExpressSolution.Dtos.Paging;
+using ExpressSolution.Stores.Queries.Category;
 using ExpressSolution.Stores.Queries.Store;
 using ExpressSolution.Stores.WebAdmin.Extensions;
 using ExpressSolution.Stores.WebAdmin.Models.Store.Inputs;
@@ -62,5 +63,58 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
             return View(listStoreOutputVm);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(string id)
+        {
+            ViewBag.success = TempData["success"];
+            DetailStoreOutputVm detailStore = await GetDetailStoreOutputVm(id);
+
+            return View(detailStore);
+        }
+
+
+
+        #region Metodos privados 
+        /// <summary>
+        /// Obengop el output el detalle de la tienda
+        /// </summary>
+        /// <param name="storeId"></param>
+        /// <returns></returns>
+        private async Task<DetailStoreOutputVm> GetDetailStoreOutputVm(string storeId)
+        {
+            DetailStoreOutputVm detailStore = new DetailStoreOutputVm();
+
+            if (string.IsNullOrEmpty(storeId) == false)
+            {
+                Store store = await _mediator.Send(new GetStoreById()
+                {
+                    StoreId = storeId
+                });
+
+                detailStore.Active = store.Active;
+                detailStore.DateCreated = store.DateCreated.ToString("dd/MM/yyyy");
+                detailStore.DynamicData = store.DynamicData;
+
+                detailStore.StoreInput.Id = store.Id;
+                detailStore.StoreInput.Name = store.Name;
+                detailStore.StoreInput.Description = store.Description.Description;
+                detailStore.StoreInput.ExtendedDescription = store.Description.ExtendedDescription;
+
+                detailStore.DynamicDataStore.StoreId = storeId;
+
+                List<Category> categories = await _mediator.Send(new GetCategoryByIds()
+                {
+                    CategoryIds= store.StoreCategories.Select(z=>z.CategoryId).ToList() 
+                });
+
+                detailStore.Categories = categories.Select(z => z.Name).ToList();
+
+            }
+
+            return detailStore;
+        }
+
+        #endregion
     }
 }

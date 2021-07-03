@@ -42,5 +42,12 @@ namespace ExpressSolution.Stores.Data.Repos
 
             return new PagingOutputDto<Category>(lista, cantidad);
         }
+
+
+        public async Task<List<Category>> GetCategoriesByIds(List<string> categoryIds=null)
+        {
+            List<Category> result = await _db.Categories.Where(x => (categoryIds==null || categoryIds.Contains(x.Id))).ToListAsync();
+            return result;
+        }
     }
 }
