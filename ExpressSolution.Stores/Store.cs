@@ -199,6 +199,18 @@ namespace ExpressSolution.Stores
         }
 
         /// <summary>
+        /// Elimina una categoria
+        /// </summary>
+        /// <param name="CategoryId"></param>
+        public void RemoveCategory(List<string> categoryId)
+        {
+            foreach(string categoriId in categoryId)
+            {
+                RemoveCategory(categoryId);
+            }
+        }
+
+        /// <summary>
         /// Obtengo la data de la multimedia store por su id
         /// </summary>
         /// <param name="id"></param>

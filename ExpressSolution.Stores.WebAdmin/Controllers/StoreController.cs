@@ -104,7 +104,11 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> StoreCategories(string storeId, List<string> categories)
         {
-
+            await _mediator.Send(new AddCategoriesToStore()
+            {
+                StoreId = storeId,
+                Categories = categories
+            }) ;
             return Json(new { exitoso = true});
         }
 

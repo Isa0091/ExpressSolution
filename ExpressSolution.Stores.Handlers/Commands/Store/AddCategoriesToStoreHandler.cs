@@ -26,7 +26,22 @@ namespace ExpressSolution.Stores.Handlers.Commands.Store
             if (store == null)
                 throw NotFoundException.CreateException(NotFoundExceptionType.Store, nameof(request), this.GetType());
 
-            store.AddCategory(request.Categories);
+            if (request.Categories == null)
+                store.StoreCategories = new List<StoreCategory>();
+
+            if (request.Categories != null)
+            {
+                List<string> actuallyCategories = store.StoreCategories.Select(z => z.CategoryId).ToList();
+
+                //categorias a remover porque ya no los enviaron
+                List<string> categoriesToRemove = actuallyCategories.Where(z => !request.Categories.Contains(z)).ToList();
+                store.RemoveCategory(categoriesToRemove);
+
+                //categorias a agregar porque no esta en las categorias actuales
+                List<string> categoriessToAdd = request.Categories.Where(z => !actuallyCategories.Contains(z)).ToList();
+                store.AddCategory(categoriessToAdd);
+            }
+
             await _storeRepo.SaveChangesAsync();
 
             return new Unit();
