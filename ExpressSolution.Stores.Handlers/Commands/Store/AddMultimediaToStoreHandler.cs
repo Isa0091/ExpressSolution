@@ -34,11 +34,11 @@ namespace ExpressSolution.Stores.Handlers.Commands.Store
                string.IsNullOrEmpty(request.UrlMultimedia))
                throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"Si se definen el tipo de multimedia externo es necesario enviar  la url");
 
-            if (request.MultimediaType != MultimediaType.ExternalLink || request.MultimediaType != MultimediaType.YouTubeLink &&
+            if (request.MultimediaType != MultimediaType.ExternalLink && request.MultimediaType != MultimediaType.YouTubeLink &&
                 string.IsNullOrEmpty(request.UrlMultimedia)==false)
                 throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"Si se  envia una url externa es necesario definir un tipo externo");
 
-            if(request.MultimediaType != MultimediaType.ExternalLink || request.MultimediaType != MultimediaType.YouTubeLink &&
+            if(request.MultimediaType != MultimediaType.ExternalLink && request.MultimediaType != MultimediaType.YouTubeLink &&
                 request.Multimedia.Any()==false)
                 throw ClientException.CreateException(ClientExceptionType.InvalidOperation, nameof(request), this.GetType(), $"Debe enviar el archivo en base al tipo elegido");
 

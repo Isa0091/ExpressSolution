@@ -15,6 +15,7 @@ namespace ExpressSolution.Stores.WebAdmin.Models.Store.Outputs
             Categories = new List<string>();
             MultimediaStoreOutput = new List<MultimediaStoreOutputVm>();
             StoreContactOutputs = new List<StoreContactOutputVm>();
+            MultimediaStoreInput = new MultimediaStoreInputVm();
         }
         /// <summary>
         /// Input store

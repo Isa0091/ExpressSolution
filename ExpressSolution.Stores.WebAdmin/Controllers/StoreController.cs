@@ -192,27 +192,27 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveMultimedia(MultimediaStoreInputVm multimediaStoreInputVm)
+        public async Task<IActionResult> SaveMultimedia(MultimediaStoreInputVm multimediaStoreInput)
         {
             try
             {
                 AddMultimediaToStore command = new AddMultimediaToStore
                 {
                     MultimediaId = Guid.NewGuid().ToString(),
-                    StoreId = multimediaStoreInputVm.StoreId,
-                    MultimediaType = multimediaStoreInputVm.MultimediaType.Value,
-                    MultimediaRelevance = multimediaStoreInputVm.MultimediaRelevance.Value,
-                    UrlMultimedia = multimediaStoreInputVm.UrlMultimedia
+                    StoreId = multimediaStoreInput.StoreId,
+                    MultimediaType = multimediaStoreInput.MultimediaType.Value,
+                    MultimediaRelevance = multimediaStoreInput.MultimediaRelevance.Value,
+                    UrlMultimedia = multimediaStoreInput.UrlMultimedia
                 };
 
                 if (command.MultimediaType != MultimediaType.ExternalLink && command.MultimediaType != MultimediaType.YouTubeLink)
                 {
-                    if (multimediaStoreInputVm.Multimedia != null)
+                    if (multimediaStoreInput.Multimedia != null)
                     {
-                        List<byte> multimediaBytes = await GetBytesMultimediaAsync(multimediaStoreInputVm.Multimedia);
-                        command.MimeType = multimediaStoreInputVm.Multimedia.ContentType;
+                        List<byte> multimediaBytes = await GetBytesMultimediaAsync(multimediaStoreInput.Multimedia);
+                        command.MimeType = multimediaStoreInput.Multimedia.ContentType;
                         command.Multimedia = multimediaBytes;
-                        command.Name = multimediaStoreInputVm.Multimedia.FileName;
+                        command.Name = multimediaStoreInput.Multimedia.FileName;
                     }
                 }
 
@@ -221,11 +221,11 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             catch(ClientException ex)
             {
                 TempData["error"] = ex.Message;
-                return RedirectToAction("Detail", new { id = multimediaStoreInputVm.StoreId });
+                return RedirectToAction("Detail", new { id = multimediaStoreInput.StoreId });
             }
     
             TempData["success"] = "Multimedia agregada exitosamente";
-            return RedirectToAction("Detail", new { id = multimediaStoreInputVm.StoreId });
+            return RedirectToAction("Detail", new { id = multimediaStoreInput.StoreId });
         }
 
         [HttpGet]

@@ -270,7 +270,7 @@
                 <h4 class="modal-title">Detalle de Multimedia</h4>
             </div>
             <div class="modal-body">
-                <form asp-action="SaveMultimedia" asp-controller="Store" method="post">
+                <form asp-action="SaveMultimedia" asp-controller="Store" method="post" enctype="multipart/form-data">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <input type="hidden" asp-for="MultimediaStoreInput.StoreId" />
                     <div class="row">
@@ -284,7 +284,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="MultimediaStoreInput.Multimedia">Valor</label>
+                                <label asp-for="MultimediaStoreInput.Multimedia">Multimedia</label>
                                 <input type="file" asp-for="MultimediaStoreInput.Multimedia" class="form-control" />
                                 <span asp-validation-for="MultimediaStoreInput.Multimedia" class="text-danger small form-text"></span>
                             </div>
@@ -294,7 +294,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="MultimediaStoreInput.MultimediaType">Tipo de multimedia</label>
-                                <<select asp-for="MultimediaStoreInput.MultimediaType" asp-items="EnumExtension.EnumSelectlist<MultimediaType>()" class="form-control">
+                                <select asp-for="MultimediaStoreInput.MultimediaType" asp-items="EnumExtension.EnumSelectlist<MultimediaType>()" class="form-control">
                                     <option selected="selected" value=>[SELECCIONE]</option>
                                 </select>
                                 <span asp-validation-for="MultimediaStoreInput.MultimediaType" class="text-danger small form-text"></span>
@@ -305,7 +305,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="MultimediaStoreInput.MultimediaRelevance">Tipo de multimedia</label>
-                                <<select asp-for="MultimediaStoreInput.MultimediaRelevance" asp-items="EnumExtension.EnumSelectlist<MultimediaRelevance>()" class="form-control">
+                                <select asp-for="MultimediaStoreInput.MultimediaRelevance" asp-items="EnumExtension.EnumSelectlist<MultimediaRelevance>()" class="form-control">
                                     <option selected="selected" value=>[SELECCIONE]</option>
                                 </select>
                                 <span asp-validation-for="MultimediaStoreInput.MultimediaType" class="text-danger small form-text"></span>

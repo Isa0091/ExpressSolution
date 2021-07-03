@@ -32,7 +32,7 @@ namespace ExpressSolution.Stores.Handlers.Commands.Store
 
             MultimediaStore multimediaStore = store.GetMultimediaStore(request.MultimediaId);
 
-            if(multimediaStore.DataMultimedia.MultimediaType != MultimediaType.ExternalLink || 
+            if(multimediaStore.DataMultimedia.MultimediaType != MultimediaType.ExternalLink && 
                multimediaStore.DataMultimedia.MultimediaType != MultimediaType.YouTubeLink)
             {
                 await _managerFileEasyAzureProvider.DeleteFile(new Uri(multimediaStore.DataMultimedia.UrlMultimedia));
