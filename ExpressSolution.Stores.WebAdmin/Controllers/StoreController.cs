@@ -97,12 +97,12 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             }
 
             string html = await this.RenderViewAsync("_StoreCategories", categoryStores);
-            return Json(new { existoso = true, html = html });
+            return Json(new { exitoso = true, html = html });
 
         }
 
         [HttpGet]
-        public async Task<IActionResult> StoreCategories(string storeId, List<string> Categories)
+        public async Task<IActionResult> SetStoreCategories(string storeId, List<string> Categories)
         {
 
             return Json(new { existoso = true});

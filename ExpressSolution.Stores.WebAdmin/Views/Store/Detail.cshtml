@@ -269,12 +269,13 @@
                     type: 'GET',
                     data: { storeId: storeid },
                     success: function (result) {
-                        if (result.existoso) {
+                        if (result.exitoso) {
                             $("#categories").html('');
                             $("#categories").html(result.html);
+                            $('.multiple').multiselect();
                            /* $.validator.unobtrusive.parse("#frmguardarsucursal");*/
                             Bitworks.Ventanas.ocultarLoading();
-                            $("modal-detalle-categories").modal();
+                            $("#modal-detalle-categories").modal();
 
                         } else {
                             Bitworks.Ventanas.ocultarLoading();
