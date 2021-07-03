@@ -459,6 +459,30 @@
                 }
 
             });
+
+            $(document).on("click", ".addMultimedia", function (e) {
+                e.preventDefault();
+                $("#modal-detalle-multimedia").modal();
+            });
+
+            $(document).on("click", ".deleteMultimedia", function (e) {
+                e.preventDefault();
+                var url = $(this).attr("href"); Swal.fire({
+                    title: "Está seguro?",
+                    text: "La multimedia se eliminará de forma permanente",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Si, eliminarlo",
+                    cancelButtonText: "No, cancelar",
+                }).then((result) => {
+                    if (result.value) {
+                        window.location = url;
+                    }
+                })
+            });
+
         });
     </script>
 }
