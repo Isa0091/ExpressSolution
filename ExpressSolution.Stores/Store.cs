@@ -206,7 +206,7 @@ namespace ExpressSolution.Stores
         {
             foreach(string categoriId in categoryId)
             {
-                RemoveCategory(categoryId);
+                RemoveCategory(categoriId);
             }
         }
 
