@@ -1,4 +1,8 @@
 ﻿@model ExpressSolution.Stores.WebAdmin.Models.Store.Outputs.DetailStoreOutputVm
+@using ExpressSolution.Stores.WebAdmin.Models.Store.Outputs
+@using ExpressSolution.Stores.WebAdmin.Extensions
+@using ExpressSolution.Stores.WebAdmin.Models
+@using ExpressSolution
 
 @{
     ViewData["Title"] = "Detail";
@@ -25,6 +29,7 @@
                                     @if (string.IsNullOrEmpty(Model.StoreInput.Id) == false)
                                     {
                                         <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">Datos Adicionales</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">Multimedias</a></li>
                                     }
 
                                 </ul>
@@ -138,6 +143,60 @@
                                             <br />
                                         </div>
                                     </div>
+
+                                    <div id="tab-5" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                @if (string.IsNullOrEmpty(Model.StoreInput.Id) == false)
+                                                {
+                                                    <div class="row" style="margin:15px!important">
+                                                        <div class="form-group">
+                                                            <a href="#" class="btn btn-white addMultimedia">
+                                                                <i class="fa fa-plus"></i> Nuevo Multimedia
+                                                            </a>
+                                                        </div>
+                                                        <br />
+                                                        <div class="">
+                                                            <table class="table border-bottom border-border">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Tipo</th>
+                                                                        <th>Relevancia</th>
+                                                                        <th>Valor</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (MultimediaStoreOutputVm multimedia in Model.MultimediaStoreOutput)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@EnumExtension.GetEnumDescription(multimedia.MultimediaType)</td>
+                                                                            <td>@EnumExtension.GetEnumDescription(multimedia.MultimediaRelevance)</td>
+                                                                            <td>
+                                                                                @if (multimedia.MultimediaType == ExpressSolution.MultimediaType.Image)
+                                                                                {
+                                                                                    <img src="@multimedia.UrlMultimedia" width="100">
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <label><a target="_blank" href="@multimedia.UrlMultimedia">Ver</a> </label>
+                                                                                }
+
+                                                                            </td>
+                                                                            <td>
+                                                                                <a class="deleteMultimedia btn btn-white" href="@Url.Action("DeleteMultimedia", "Store", new { storeId = Model.StoreInput.Id, multimediaId = multimedia.Id })">Eliminar</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +246,7 @@
     </div>
 </div>
 
-<div class="modal inmodal fade"  id="modal-detalle-categories" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal fade" id="modal-detalle-categories" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -203,7 +262,69 @@
     </div>
 </div>
 
+<div class="modal inmodal fade" id="modal-detalle-multimedia" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title">Detalle de Multimedia</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="SaveMultimedia" asp-controller="Store" method="post">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" asp-for="MultimediaStoreInput.StoreId" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MultimediaStoreInput.UrlMultimedia">UrlMultimedia</label>
+                                <input asp-for="MultimediaStoreInput.UrlMultimedia" class="form-control" />
+                                <span asp-validation-for="MultimediaStoreInput.UrlMultimedia" class="text-danger small form-text"></span>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MultimediaStoreInput.Multimedia">Valor</label>
+                                <input type="file" asp-for="MultimediaStoreInput.Multimedia" class="form-control" />
+                                <span asp-validation-for="MultimediaStoreInput.Multimedia" class="text-danger small form-text"></span>
+                            </div>
+                            <br />
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MultimediaStoreInput.MultimediaType">Tipo de multimedia</label>
+                                <<select asp-for="MultimediaStoreInput.MultimediaType" asp-items="EnumExtension.EnumSelectlist<MultimediaType>()" class="form-control">
+                                    <option selected="selected" value=>[SELECCIONE]</option>
+                                </select>
+                                <span asp-validation-for="MultimediaStoreInput.MultimediaType" class="text-danger small form-text"></span>
+                            </div>
+                            <br />
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MultimediaStoreInput.MultimediaRelevance">Tipo de multimedia</label>
+                                <<select asp-for="MultimediaStoreInput.MultimediaRelevance" asp-items="EnumExtension.EnumSelectlist<MultimediaRelevance>()" class="form-control">
+                                    <option selected="selected" value=>[SELECCIONE]</option>
+                                </select>
+                                <span asp-validation-for="MultimediaStoreInput.MultimediaType" class="text-danger small form-text"></span>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar</button>
+                        <button type="button" class="btn btn-default btn-white" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" value="@ViewBag.success" id="success" />
+<input type="hidden" value="@ViewBag.Error" id="Error" />
 
 @section Scripts{
 
@@ -215,6 +336,11 @@
             var success = $("#success").val()
             if (success != "")
                 swal("Exito", success, "success");
+
+            var Error = $("#Error").val()
+            if (Error != "")
+                swal("Error", Error, "error");
+
 
             $('.editorDescripcion').summernote();
 

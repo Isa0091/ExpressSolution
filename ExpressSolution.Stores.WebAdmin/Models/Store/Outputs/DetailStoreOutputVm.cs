@@ -53,5 +53,10 @@ namespace ExpressSolution.Stores.WebAdmin.Models.Store.Outputs
         /// Input para guardar campos dinamicos
         /// </summary>
         public DynamicDataStoreInputVm DynamicDataStore { get; set; }
+
+        /// <summary>
+        /// Datos para ingresar una multimedia
+        /// </summary>
+        public MultimediaStoreInputVm MultimediaStoreInput { get; set; }
     }
 }

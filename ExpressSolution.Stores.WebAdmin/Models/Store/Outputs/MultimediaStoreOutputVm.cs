@@ -23,14 +23,14 @@ namespace ExpressSolution.Stores.WebAdmin.Models.Store.Outputs
         /// <summary>
         /// 
         /// </summary>
-        public string MimeType { get; init; }
+        public string MimeType { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string UrlMultimedia { get; init; }
+        public string UrlMultimedia { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public MultimediaType MultimediaType { get; init; }
+        public MultimediaType MultimediaType { get; set; }
     }
 }

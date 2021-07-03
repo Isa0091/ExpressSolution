@@ -1,4 +1,5 @@
 ﻿using ExpressSolution.Dtos.Paging;
+using ExpressSolution.Exceptions;
 using ExpressSolution.Stores.Comands.Store;
 using ExpressSolution.Stores.Queries.Category;
 using ExpressSolution.Stores.Queries.Store;
@@ -6,9 +7,11 @@ using ExpressSolution.Stores.WebAdmin.Extensions;
 using ExpressSolution.Stores.WebAdmin.Models.Store.Inputs;
 using ExpressSolution.Stores.WebAdmin.Models.Store.Outputs;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -69,6 +72,8 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
         public async Task<IActionResult> Detail(string id)
         {
             ViewBag.success = TempData["success"];
+            ViewBag.Error = TempData["error"];
+
             DetailStoreOutputVm detailStore = await GetDetailStoreOutputVm(id);
 
             return View(detailStore);
@@ -186,8 +191,78 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             return RedirectToAction("Detail", new { id = storeId });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SaveMultimedia(MultimediaStoreInputVm multimediaStoreInputVm)
+        {
+            try
+            {
+                AddMultimediaToStore command = new AddMultimediaToStore
+                {
+                    MultimediaId = Guid.NewGuid().ToString(),
+                    StoreId = multimediaStoreInputVm.StoreId,
+                    MultimediaType = multimediaStoreInputVm.MultimediaType.Value,
+                    MultimediaRelevance = multimediaStoreInputVm.MultimediaRelevance.Value,
+                    UrlMultimedia = multimediaStoreInputVm.UrlMultimedia
+                };
+
+                if (command.MultimediaType != MultimediaType.ExternalLink && command.MultimediaType != MultimediaType.YouTubeLink)
+                {
+                    if (multimediaStoreInputVm.Multimedia != null)
+                    {
+                        List<byte> multimediaBytes = await GetBytesMultimediaAsync(multimediaStoreInputVm.Multimedia);
+                        command.MimeType = multimediaStoreInputVm.Multimedia.ContentType;
+                        command.Multimedia = multimediaBytes;
+                        command.Name = multimediaStoreInputVm.Multimedia.FileName;
+                    }
+                }
+
+                await _mediator.Send(command);
+            }
+            catch(ClientException ex)
+            {
+                TempData["error"] = ex.Message;
+                return RedirectToAction("Detail", new { id = multimediaStoreInputVm.StoreId });
+            }
+    
+            TempData["success"] = "Multimedia agregada exitosamente";
+            return RedirectToAction("Detail", new { id = multimediaStoreInputVm.StoreId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteMultimedia(string storeId, string multimediaId)
+        {
+            RemoveMultimediaFromStore command = new RemoveMultimediaFromStore
+            {
+                StoreId = storeId,
+                 MultimediaId = multimediaId
+            };
+
+            await _mediator.Send(command);
+            TempData["success"] = "multimedia eliminada exitosamente";
+
+            return RedirectToAction("Detail", new { id = storeId });
+        }
+
 
         #region Metodos privados 
+
+        /// <summary>
+        /// Obtengo los bytes de un IFormFile
+        /// </summary>
+        /// <param name="multimedia"></param>
+        /// <returns></returns>
+        private async Task<List<byte>> GetBytesMultimediaAsync(IFormFile multimedia)
+        {
+            List<byte> imagenBytes = new List<byte>();
+            using (var memoryStream = new MemoryStream())
+            {
+                await multimedia.CopyToAsync(memoryStream);
+                imagenBytes = memoryStream.ToArray().ToList();
+
+            }
+
+            return imagenBytes;
+        }
         /// <summary>
         /// Obengop el output el detalle de la tienda
         /// </summary>
@@ -241,6 +316,8 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
                      Name= z.ContactData.Name
 
                 }).ToList();
+
+                detailStore.MultimediaStoreInput.StoreId = storeId;
 
             }
 
