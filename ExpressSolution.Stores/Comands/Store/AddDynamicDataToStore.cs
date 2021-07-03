@@ -17,6 +17,6 @@ namespace ExpressSolution.Stores.Comands.Store
         /// <summary>
         /// Datos dinamicosa asignar a la tienda
         /// </summary>
-        public List<DynamicDataVo> DynamicData { get; set; }
+        public DynamicDataVo DynamicData { get; set; }
     }
 }

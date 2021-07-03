@@ -1,4 +1,5 @@
 ﻿using ExpressSolution.Dtos.Paging;
+using ExpressSolution.Stores.Comands.Store;
 using ExpressSolution.Stores.Queries.Category;
 using ExpressSolution.Stores.Queries.Store;
 using ExpressSolution.Stores.WebAdmin.Extensions;
@@ -73,6 +74,79 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             return View(detailStore);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Detail(StoreInputVm storeInput)
+        {
+            string storeId = storeInput.Id;
+
+            if (ModelState.IsValid == false)
+            {
+                DetailStoreOutputVm detailStore = await GetDetailStoreOutputVm(storeInput.Id);
+                detailStore.StoreInput = storeInput;
+                return View(detailStore);
+            }
+
+            if(string.IsNullOrEmpty(storeInput.Id))
+            {
+                storeId = Guid.NewGuid().ToString();
+                await _mediator.Send(new CreateStore()
+                { 
+                  Id= storeId,
+                  StoreData= new Dtos.Store.StoreData()
+                  {
+                       Description= new DescriptionVo(storeInput.Description, storeInput.ExtendedDescription),
+                       Name= storeInput.Name
+                  }
+                });
+            }
+
+            if (string.IsNullOrEmpty(storeInput.Id)==false)
+            {
+                await _mediator.Send(new EditStore()
+                {
+                    Id = storeId,
+                    StoreData = new Dtos.Store.StoreData()
+                    {
+                        Description = new DescriptionVo(storeInput.Description, storeInput.ExtendedDescription),
+                        Name = storeInput.Name
+                    }
+                });
+            }
+
+            TempData["success"] = "Datos generales guardados correctamente";
+            return RedirectToAction("Detail", new { id = storeId });
+        }
+
+            [HttpPost]
+        public async Task<IActionResult> SaveDynamicData(DynamicDataStoreInputVm dynamicDataStore)
+        {
+            AddDynamicDataToStore command = new AddDynamicDataToStore
+            {
+                StoreId = dynamicDataStore.StoreId,
+                DynamicData = new DynamicDataVo(dynamicDataStore.DataName, dynamicDataStore.DataValue)
+            };
+
+            await _mediator.Send(command);
+
+            TempData["success"] = "Dato adicional guardado exitosamente";
+
+            return RedirectToAction("Detail", new { id = dynamicDataStore.StoreId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteData(string storeId, string name)
+        {
+            RemoveDynamicDataFromStore command = new RemoveDynamicDataFromStore
+            {
+                StoreId= storeId,
+                DataName = name
+            };
+
+            await _mediator.Send(command);
+            TempData["success"] = "Dato eliminado exitosamente";
+
+            return RedirectToAction("Detail", new { id = storeId });
+        }
 
 
         #region Metodos privados 
