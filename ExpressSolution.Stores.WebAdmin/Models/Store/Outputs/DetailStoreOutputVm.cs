@@ -12,6 +12,9 @@ namespace ExpressSolution.Stores.WebAdmin.Models.Store.Outputs
         {
             StoreInput = new StoreInputVm();
             DynamicDataStore = new DynamicDataStoreInputVm();
+            Categories = new List<string>();
+            MultimediaStoreOutput = new List<MultimediaStoreOutputVm>();
+            StoreContactOutputs = new List<StoreContactOutputVm>();
         }
         /// <summary>
         /// Input store
@@ -36,6 +39,16 @@ namespace ExpressSolution.Stores.WebAdmin.Models.Store.Outputs
         /// Listado de categorias de la tienda
         /// </summary>
         public List<string> Categories { get; set; }
+
+        /// <summary>
+        /// Listado de multimedias asociadas 
+        /// </summary>
+        public List<MultimediaStoreOutputVm> MultimediaStoreOutput { get; set; }
+
+        /// <summary>
+        /// Listado de contactos de la tienda
+        /// </summary>
+        public List<StoreContactOutputVm> StoreContactOutputs { get; set; }
         /// <summary>
         /// Input para guardar campos dinamicos
         /// </summary>

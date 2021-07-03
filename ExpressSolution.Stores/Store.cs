@@ -16,6 +16,7 @@ namespace ExpressSolution.Stores
             StoreCategories = new List<StoreCategory>();
             DynamicData = new List<DynamicDataVo>();
             Contacts = new List<StoreContact>();
+            Multimedia = new List<MultimediaStore>();
         }
         /// <summary>
         /// Identificador unicode la tienda

@@ -110,6 +110,26 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
                 detailStore.Categories = categories.Select(z => z.Name).ToList();
 
+                detailStore.MultimediaStoreOutput = store.Multimedia.Select(z => new MultimediaStoreOutputVm()
+                {
+                     Id= z.Id,
+                     MimeType= z.DataMultimedia.MimeType,
+                     MultimediaRelevance= z.MultimediaRelevance,
+                     MultimediaType= z.DataMultimedia.MultimediaType,
+                     UrlMultimedia= z.DataMultimedia.UrlMultimedia
+
+                }).ToList();
+
+                detailStore.StoreContactOutputs = store.Contacts.Select(z => new StoreContactOutputVm()
+                {
+                     Email= z.ContactData.Email,
+                     Id= z.Id,
+                     LandLineNumber= z.ContactData.LandLineNumber,
+                     MobileNumber= z.ContactData.MobileNumber,
+                     Name= z.ContactData.Name
+
+                }).ToList();
+
             }
 
             return detailStore;
