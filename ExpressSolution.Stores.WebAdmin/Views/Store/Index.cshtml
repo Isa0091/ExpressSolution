@@ -1,0 +1,100 @@
+﻿@model ExpressSolution.Stores.WebAdmin.Models.Store.Outputs.ListStoreOutputVm
+@using ExpressSolution.Stores.WebAdmin.Extensions
+@using ExpressSolution.Stores.WebAdmin.Models
+@{
+    ViewData["Title"] = "Tiendas";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Listado de tiendas</h2>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-title">Búsqueda</div>
+                <div class="ibox-content">
+                    <form asp-action="Index" asp-controller="Category" method="get">
+
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label asp-for="Filter.NameContains">Nombre</label>
+                                <input asp-for="Filter.NameContains" class="form-control" name="NameContains" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label asp-for="Filter.State">Activos</label>
+                                <select asp-for="Filter.State" asp-items="EnumExtension.EnumSelectlist<State>()" class="form-control" name="State">
+                                    <option selected="selected" value=>[TODOS]</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <button class="btn btn-primary" type="submit" style="margin-top: 22px;">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="ibox">
+                <div class="ibox-title">Listado</div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <a asp-action="Detail" asp-controller="Store" class="btn btn-white">
+                            <i class="fa fa-plus"></i> Nueva categoria
+                        </a>
+                    </div>
+                    <br />
+                    <div class="table-responsive">
+
+                        <table class="footable table table-stripped no-paging footable-loaded no-paging" data-paging="false">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Activo</th>
+                                    <th>Fecha ingreso</th>
+                                    <th>Detalle</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Stores)
+                                {
+                                    <tr>
+
+                                        <td>@item.Name</td>
+                                        <td>@item.Description</td>
+                                        <td><input type="checkbox" class="chkActivo" data-codigo="@item.Id" @Html.Raw(item.Active ? "checked='checked'" : "") /></td>
+                                        <td>@item.DateCreated</td>
+                                        <td>
+                                            <a asp-action="Detail" asp-controller="Store" asp-route-Id="@item.Id" class="btn btn-white"><i class="fa fa-pencil"></i> Detalle</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="mb-md-4 py-5" style="text-align:center;">
+                            @{
+                                Func<int, string> url = pag => Url.Action("Index", "Store", new
+                                {
+                                    Page = pag,
+                                    @NameContains = Model.Filter.NameContains,
+                                    @state = Model.Filter.State,
+
+                                });
+                            }
+                            @await Component.InvokeAsync("Pagination", new { pagingInfo = Model.PagingInfo, pageUrl = url })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
