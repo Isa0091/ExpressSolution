@@ -170,6 +170,23 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             return RedirectToAction("Detail", new { id = categoryId });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateStateCategory(string categoryId, bool state)
+        {
+            if (state == false)
+                await _mediator.Send(new InactivateCategory()
+                {
+                    CategoryId = categoryId
+                });
+
+            if (state)
+                await _mediator.Send(new ActiveCategory()
+                {
+                    CategoryId = categoryId
+                });
+
+            return Json(new { exitoso = true });
+        }
         #region Metodos privados
         /// <summary>
         /// Obtengo los bytes de un IFormFile

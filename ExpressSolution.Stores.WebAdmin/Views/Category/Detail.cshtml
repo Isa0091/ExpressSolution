@@ -198,6 +198,7 @@
     </div>
 </div>
 <input type="hidden" value="@ViewBag.success" id="success" />
+<input type="hidden" value="@Url.Action("UpdateStateCategory","Category")" id="url-updatestate-category" />
 
 @section Scripts{
 
@@ -251,6 +252,28 @@
                 })
             });
 
+            $(document).on("click", "#Active", function (e) {
+                Bitworks.Ventanas.mostrarLoading();
+                var url = $("#url-updatestate-category").val();
+                var categoryId = $("#CategoryInputVm_Id").val();
+                var state = $(this).is(':checked');
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        categoryId: categoryId,
+                        state: state
+                    }
+                }).done(function (data) {
+                    if (data.exitoso) {
+                        Bitworks.Ventanas.ocultarLoading();
+                    } else {
+                        swal("Error", "Error al cambiar el estado de la categoria", "error");
+                    }
+                }).fail(function () {
+                    swal("Error", "Error al cambiar el estado de la categoria", "error");
+                });
+            });
         });
     </script>
 }
