@@ -153,6 +153,24 @@ namespace ExpressSolution.Stores
         }
 
         /// <summary>
+        /// Agrega los datos de un contacto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="contactData"></param>
+        /// <returns></returns>
+        public StoreContact EditStoreContact(string id, ContactDataVo contactData)
+        {
+            StoreContact contact = Contacts.SingleOrDefault(z => z.Id == id);
+
+            if(contact==null)
+                throw NotFoundException.CreateException(NotFoundExceptionType.Store, nameof(id), this.GetType());
+
+            contact.ContactData = contactData with { };
+
+            return contact;
+        }
+
+        /// <summary>
         /// Elimina los datos de un contacto
         /// </summary>
         /// <param name="contactId"></param>

@@ -281,15 +281,15 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             }
             else
             {
-                //EditContactToStore command = new EditContactToStore
-                //{
-                //    StoreId = storeContactInput.StoreId,
-                //    ContactId = storeContactInput.ContactId,
-                //    ContactData = new ContactDataVo(storeContactInput.LandLineNumber,
-                //    storeContactInput.Email, storeContactInput.MobileNumber, storeContactInput.ContactName)
-                //};
+                EditContactToStore command = new EditContactToStore
+                {
+                    StoreId = storeContactInput.StoreId,
+                    ContactId = storeContactInput.ContactId,
+                    ContactData = new ContactDataVo(storeContactInput.LandLineNumber,
+                    storeContactInput.Email, storeContactInput.MobileNumber, storeContactInput.ContactName)
+                };
 
-                //await _mediator.Send(command);
+                await _mediator.Send(command);
             }
 
             return Json(new { existoso = true });
