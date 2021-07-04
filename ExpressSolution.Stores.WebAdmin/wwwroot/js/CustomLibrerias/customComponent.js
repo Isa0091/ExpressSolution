@@ -67,7 +67,7 @@ $(document).ready(function () {
 
         $(divReload).empty();
 
-        Bitworks.Ajax.callGetJsonWithGet(urlPregunta, function (respuesta) {
+        Component.Ajax.callGetJsonWithGet(urlPregunta, function (respuesta) {
             //$(divReload).empty();
             $(divReload).html(respuesta.Mensaje);
             //inisializo todos las herramientas de nuevo
@@ -89,8 +89,7 @@ $(document).ready(function () {
         if ($.validator) {
             $.validator.unobtrusive.parse("form");
         }
-        //configuro la onda para levantar las ventanas
-      //  utilidadesBitworks.ConfigVal(true);
+
     });
 
 
@@ -120,7 +119,7 @@ $(document).ready(function () {
             closeOnConfirm: false
         },
         function () {
-            Bitworks.Ventanas.mostrarLoading();
+            Component.Ventanas.mostrarLoading();
 
             $.ajax({
                 type: "POST",

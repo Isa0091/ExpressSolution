@@ -1,5 +1,5 @@
 ﻿/// <reference path="../jquery-1.9.0.min.js" />
-/// <reference path="../utilidadesBitworks.js" />
+/// <reference path="../utilidades.js" />
 /// <reference path="../jquery.history.js" />
 
 //Extension jquery para poder serializar el form a JSON
@@ -23,27 +23,27 @@
 })(jQuery);
 
 (function (window) {
-    window.Bitworks = (typeof (window.Bitworks) === "undefined") ? {} : window.Bitworks;
+    window.Component = (typeof (window.Component) === "undefined") ? {} : window.Component;
 
 
 
 
     $(document).ready(function () {
-        Bitworks.Navigation.Init("divActualizar");
+        Component.Navigation.Init("divActualizar");
         //VentanasHelper.showError("lorem ipsum dolor sit amet");
 
 
         //Pruebas para poner los eventos
-        Bitworks.Navigation.Ready("test1", function () {
+        Component.Navigation.Ready("test1", function () {
             alert("Ejecutando Evento Ready de la Pagina de prueba 1");
         });
 
-        Bitworks.Navigation.Ready("test2", function () {
+        Component.Navigation.Ready("test2", function () {
             alert("Ejecutando Evento Ready de la pagina de prueba 2");
         });
     });
 
-    Bitworks.Navigation = function () {
+    Component.Navigation = function () {
         var divContenedor = null;
         var flagTrabajando = false;
         var History = null, StateActual = null, DomViejo = null;
@@ -136,7 +136,7 @@
                 flagTrabajando = true;
                 //DomViejo = $(divContenedor).contents().detach();
                 //$(divContenedor).empty();
-                Bitworks.Ventanas.mostrarLoading("Espere...");
+                Component.Ventanas.mostrarLoading("Espere...");
 
                 setTimeout(function () {
                     utilidadesBitworks.getAjaxHTML(urlLlamar, function (data) { getExitoso(data, idViewCambio); }, getFallido);
@@ -148,9 +148,9 @@
         var getExitoso = function (data, IdView) {
             flagTrabajando = false;
             //DomViejo = $(divContenedor).contents().detach();
-            if (Bitworks.FusionChart) {
-                Bitworks.FusionChart.DisposeGraficos();
-                Bitworks.FusionChart.Configurar();
+            if (Component.FusionChart) {
+                Component.FusionChart.DisposeGraficos();
+                Component.FusionChart.Configurar();
             }
             $(divContenedor).empty();
             $(divContenedor).html(data);
@@ -161,9 +161,9 @@
                 $.validator.unobtrusive.parse("form");
             }
 
-            Bitworks.Ajax.configCmdAjax();
+            Component.Ajax.configCmdAjax();
             utilidadesBitworks.ConfigVal(true);
-            Bitworks.Ventanas.ocultarLoading();
+            Component.Ventanas.ocultarLoading();
             //Ejecuto los Callbacks de ready
             if (IdView) {
                 var objEvents = BuscarObjEventById(IdView);
@@ -177,8 +177,8 @@
             //History.back()
             //$(divContenedor).append(DomViejo);
             //alert("hubo un error en la llamada ajax");
-            Bitworks.Ventanas.ocultarLoading();
-            Bitworks.Ventanas.mensajeError("Hubo un error cargando el nuevo contenido. Vuelva a intentarlo.", 10000);
+            Component.Ventanas.ocultarLoading();
+            Component.Ventanas.mensajeError("Hubo un error cargando el nuevo contenido. Vuelva a intentarlo.", 10000);
 
         };
 
@@ -192,7 +192,7 @@
 
 
 
-    Bitworks.Ajax = function () {
+    Component.Ajax = function () {
 
         $(document).ready(function () {
             ConfigurarCmdAjax();
@@ -226,15 +226,15 @@
 
         //Metodos Privados
         var succesAjax = function (data, callbackCliente) {
-            Bitworks.Ventanas.ocultarLoading();
+            Component.Ventanas.ocultarLoading();
             var objRetorno = data;
             if (objRetorno.Estado === 0 || objRetorno.Estado === 3) {
                 callbackCliente(objRetorno);
             } else if (objRetorno.Estado === 2) {
                 if (objRetorno.Mensaje && objRetorno.Mensaje.length > 0) {
-                    Bitworks.Ventanas.alertaError("Permisos", objRetorno.Mensaje);
+                    Component.Ventanas.alertaError("Permisos", objRetorno.Mensaje);
                 } else {
-                    Bitworks.Ventanas.alertaError("Permisos", "No tiene permisos para ejecutar esta accion");
+                    Component.Ventanas.alertaError("Permisos", "No tiene permisos para ejecutar esta accion");
                 }
             } else if (objRetorno.Estado === 1) {
                 if (objRetorno.ListadoErrores && objRetorno.ListadoErrores.length > 0) {
@@ -245,23 +245,23 @@
                         $ul.append("<li>" + errorActual + "</li>");
                     }*/
 
-                    Bitworks.Ventanas.listaErrores(objRetorno.ListadoErrores);
+                    Component.Ventanas.listaErrores(objRetorno.ListadoErrores);
 
 
                 } else if (objRetorno.Mensaje && objRetorno.Mensaje.length > 0) {
-                    Bitworks.Ventanas.ocultarLoading();
-                    Bitworks.Ventanas.alertaError(null, objRetorno.Mensaje);
+                    Component.Ventanas.ocultarLoading();
+                    Component.Ventanas.alertaError(null, objRetorno.Mensaje);
                 } else {
-                    Bitworks.Ventanas.alertaError("Server Error", "Hubo un error porfavor vuelva a intentarlo.");
+                    Component.Ventanas.alertaError("Server Error", "Hubo un error porfavor vuelva a intentarlo.");
                 }
             };
         };
         var onAjaxError = function (objError, errCallback) {
-            Bitworks.Ventanas.ocultarLoading();
+            Component.Ventanas.ocultarLoading();
             if (objError != null && objError.message.length > 0) {
-                Bitworks.Ventanas.alertaError("Server Error", objError.message);
+                Component.Ventanas.alertaError("Server Error", objError.message);
             } else {
-                Bitworks.Ventanas.alertaError("Server Error", "Hubo un error en el servidor, o no tiene una conexion a internet. Vuelva a intentarlo");
+                Component.Ventanas.alertaError("Server Error", "Hubo un error en el servidor, o no tiene una conexion a internet. Vuelva a intentarlo");
             }
             if (errCallback) errCallback(objError);
         };

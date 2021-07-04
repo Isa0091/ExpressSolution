@@ -455,7 +455,7 @@
 
             $(document).on('click', ".categories", function (e) {
 
-                Bitworks.Ventanas.mostrarLoading();
+                Component.Ventanas.mostrarLoading();
                 e.preventDefault();
                 var storeid = $(this).data("id");
 
@@ -468,16 +468,16 @@
                             $("#categories").html('');
                             $("#categories").html(result.html);
                             $('.multiple').multiselect();
-                            Bitworks.Ventanas.ocultarLoading();
+                            Component.Ventanas.ocultarLoading();
                             $("#modal-detalle-categories").modal();
 
                         } else {
-                            Bitworks.Ventanas.ocultarLoading();
+                            Component.Ventanas.ocultarLoading();
                             toastr.error(result.mensaje);
                         }
                     },
                     error: function (error) {
-                        Bitworks.Ventanas.ocultarLoading();
+                        Component.Ventanas.ocultarLoading();
                         toastr.error('Error al intentar hacer la peticion recarge la pagina y vuelva a intentarlo')
                     }
                 });
@@ -486,7 +486,7 @@
 
             $(document).on('click', '#btn-guarda-categories', function (e) {
 
-                Bitworks.Ventanas.mostrarLoading();
+                Component.Ventanas.mostrarLoading();
                 e.preventDefault();
 
                 var storeid = $("#StoreInput_Id").val();
@@ -515,12 +515,12 @@
 
                                 location.reload();
                             } else {
-                                Bitworks.Ventanas.ocultarLoading();
+                                Component.Ventanas.ocultarLoading();
                                 toastr.error('Error al intentar hacer la peticion recarge la pagina y vuelva a intentarlo')
                             }
                         },
                         error: function (error) {
-                            Bitworks.Ventanas.ocultarLoading();
+                            Component.Ventanas.ocultarLoading();
                             toastr.error('Error al intentar hacer la peticion recarge la pagina y vuelva a intentarlo')
                         }
                     });
@@ -553,12 +553,12 @@
 
             $(document).on("click", "#btn-guardar-contact", function (e) {
                 e.preventDefault();
-                Bitworks.Ventanas.mostrarLoading();
+                Component.Ventanas.mostrarLoading();
                 var url = $("#frmContact").attr('action');
 
                 if ($("#frmContact").valid() == false) {
                     $("#frmContact").submit();
-                    Bitworks.Ventanas.ocultarLoading();
+                    Component.Ventanas.ocultarLoading();
                 } else {
                     $.ajax({
                         url: url,
@@ -568,7 +568,7 @@
                         if (data.exitoso == false) {
                             $("#Rendercontact").empty();
                             $("#Rendercontact").html(data.html);
-                            Bitworks.Ventanas.ocultarLoading();
+                            Component.Ventanas.ocultarLoading();
                         } else {
                             swal({
                                 title: "Guardado!",
@@ -626,7 +626,7 @@
             });
 
             $(document).on("click", "#Active", function (e) {
-                Bitworks.Ventanas.mostrarLoading();
+                Component.Ventanas.mostrarLoading();
                 var url = $("#url-updatestate-store").val();
                 var storeid = $("#StoreInput_Id").val();
                 var state = $(this).is(':checked');
@@ -639,7 +639,7 @@
                     }
                 }).done(function (data) {
                     if (data.exitoso) {
-                        Bitworks.Ventanas.ocultarLoading();
+                        Component.Ventanas.ocultarLoading();
                     } else {
                         swal("Error", "Error al cambiar el estado de la tienda", "error");
                     }

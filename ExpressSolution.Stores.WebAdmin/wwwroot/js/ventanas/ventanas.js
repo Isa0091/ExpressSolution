@@ -69,9 +69,9 @@ VERSION 1.0
 * */
 
 (function (window) {
-    window.Bitworks = (typeof (window.Bitworks) === "undefined") ? {} : window.Bitworks;
+    window.Component = (typeof (window.Component) === "undefined") ? {} : window.Component;
     
-    Bitworks.Ventanas = {
+    Component.Ventanas = {
 		
 		confirmar: function(texto, callback_aceptar, callback_cancelar, texto_btn_aceptar, texto_btn_cancelar){
 			
@@ -83,7 +83,7 @@ VERSION 1.0
                 texto_btn_cancelar = "Cancelar";
             }
             
-            Bitworks.Ventanas.mostrarConfirmar(null, texto, texto_btn_aceptar, texto_btn_cancelar, callback_aceptar, callback_cancelar);
+            Component.Ventanas.mostrarConfirmar(null, texto, texto_btn_aceptar, texto_btn_cancelar, callback_aceptar, callback_cancelar);
             
 		},
 		
@@ -198,8 +198,8 @@ VERSION 1.0
 			if(!texto) var texto = "Alerta Exito";
 			if(!texto_btn_cerrar) var texto_btn_cerrar = null;
 			
-			if (typeof callback_cerrar == "function") Bitworks.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 1, callback_cerrar);
-			else Bitworks.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 1);
+			if (typeof callback_cerrar == "function") Component.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 1, callback_cerrar);
+			else Component.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 1);
 		},
 		
 		alertaAdvertencia: function(titulo, texto, texto_btn_cerrar, callback_cerrar){
@@ -207,8 +207,8 @@ VERSION 1.0
 			if(!texto) var texto = "Alerta advertencia";
 			if(!texto_btn_cerrar) var texto_btn_cerrar = null;
 			
-			if (typeof callback_cerrar == "function") Bitworks.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 2, callback_cerrar);
-			else Bitworks.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 2);
+			if (typeof callback_cerrar == "function") Component.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 2, callback_cerrar);
+			else Component.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 2);
 		},
 		
 		alertaError: function(titulo, texto, texto_btn_cerrar, callback_cerrar){
@@ -216,28 +216,28 @@ VERSION 1.0
 			if(!texto) var texto = "Alerta Error";
 			if(!texto_btn_cerrar) var texto_btn_cerrar = null;
 			
-			if (typeof callback_cerrar == "function") Bitworks.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 3, callback_cerrar);
-			else Bitworks.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 3);
+			if (typeof callback_cerrar == "function") Component.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 3, callback_cerrar);
+			else Component.Ventanas.alerta(titulo, texto, texto_btn_cerrar, 3);
 		},
 		
 		mensajeExito: function(texto, fadeOut){
 			if(texto.length>0){
 				if(!fadeOut) var fadeOut = null;
-				Bitworks.Ventanas.mensaje(texto, fadeOut, 1);
+				Component.Ventanas.mensaje(texto, fadeOut, 1);
 			}
 		},
 		
 		mensajeAdvertencia: function(texto, fadeOut){
 			if(texto.length>0){
 				if(fadeOut==0){} else if( !fadeOut || fadeOut == null || isNaN(fadeOut) || fadeOut<=500 ) var fadeOut = 8000; // 8 segundos por default
-				Bitworks.Ventanas.mensaje(texto, fadeOut, 2);
+				Component.Ventanas.mensaje(texto, fadeOut, 2);
 			}
 		},
 		
 		mensajeError: function(texto, fadeOut){
 			if(texto.length>0){
 				if(fadeOut==0){} else if( !fadeOut || fadeOut == null || isNaN(fadeOut) || fadeOut<=500 ) var fadeOut = 8000; // 8 segundos por default
-				Bitworks.Ventanas.mensaje(texto, fadeOut, 3);
+				Component.Ventanas.mensaje(texto, fadeOut, 3);
 			}
 		},
 		
@@ -313,7 +313,7 @@ VERSION 1.0
             	html += "<";
             	
 				if( Object.prototype.toString.call( array_errores ) === '[object Array]' ) {
-				    Bitworks.Ventanas.alertaHtml(html, "listaErrores "+clase_personalizada, boton_o_x, txt_boton);
+				    Component.Ventanas.alertaHtml(html, "listaErrores "+clase_personalizada, boton_o_x, txt_boton);
 				    
 				} else {
 					console.log("El primer parámetro de listaErrores debe ser un array.");
