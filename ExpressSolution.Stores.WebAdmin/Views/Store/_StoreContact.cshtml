@@ -1,0 +1,43 @@
+﻿@model ExpressSolution.Stores.WebAdmin.Models.Store.Inputs.StoreContactInputVm
+@{
+    Layout = null;
+}
+
+<form asp-action="ContactStore" asp-controller="Store" method="post" id="frmAddContact">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" asp-for="StoreId"  />
+    <input type="hidden" asp-for="ContactId" />
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-group col-md-6" style="margin-bottom:5px!important">
+                <label asp-for="Name">Nombre</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger small form-text"></span>
+
+            </div>
+            <div class="form-group col-md-6" style="margin-bottom:5px!important">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger small form-text"></span>
+
+            </div>
+            <div class="form-group col-md-6" style="margin-bottom:5px!important">
+                <label asp-for="LandLineNumber">Telefono</label>
+                <input asp-for="LandLineNumber" class="form-control" />
+                <span asp-validation-for="LandLineNumber" class="text-danger small form-text"></span>
+                <br />
+            </div>
+            <div class="form-group col-md-12" style="margin-bottom:5px!important">
+                <label asp-for="MobileNumber">Celular</label>
+                <input asp-for="MobileNumber" class="form-control" />
+                <span asp-validation-for="MobileNumber" class="text-danger small form-text"></span>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar</button>
+        <button type="button" class="btn btn-default btn-white" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
