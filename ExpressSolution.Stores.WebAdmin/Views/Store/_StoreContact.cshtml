@@ -3,7 +3,7 @@
     Layout = null;
 }
 
-<form asp-action="ContactStore" asp-controller="Store" method="post" id="frmAddContact">
+<form asp-action="ContactStore" asp-controller="Store" method="post" id="frmContact">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <input type="hidden" asp-for="StoreId"  />
     <input type="hidden" asp-for="ContactId" />
@@ -11,9 +11,9 @@
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-md-6" style="margin-bottom:5px!important">
-                <label asp-for="Name">Nombre</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger small form-text"></span>
+                <label asp-for="ContactName">Nombre</label>
+                <input asp-for="ContactName" class="form-control" />
+                <span asp-validation-for="ContactName" class="text-danger small form-text"></span>
 
             </div>
             <div class="form-group col-md-6" style="margin-bottom:5px!important">
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar</button>
+        <button type="submit" class="btn btn-primary" id="btn-guardar-contact">Guardar</button>
         <button type="button" class="btn btn-default btn-white" data-dismiss="modal">Cerrar</button>
     </div>
 </form>

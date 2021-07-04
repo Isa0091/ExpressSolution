@@ -243,6 +243,57 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             return RedirectToAction("Detail", new { id = storeId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DeleteContact(string storeId, string contactId)
+        {
+            DeleteContactFromStore command = new DeleteContactFromStore
+            {
+                StoreId = storeId,
+                ContactId = contactId
+            };
+
+            await _mediator.Send(command);
+            TempData["success"] = "Contacto eliminada exitosamente";
+
+            return RedirectToAction("Detail", new { id = storeId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ContactStore(StoreContactInputVm storeContactInput)
+        {
+            if (!ModelState.IsValid)
+            {
+                string html = await this.RenderViewAsync("_StoreContact", storeContactInput, true);
+                return Json(new { exitoso = false, html = html });
+            }
+
+            if (string.IsNullOrEmpty(storeContactInput.ContactId))
+            {
+                AddContactStore command = new AddContactStore
+                {
+                    StoreId =storeContactInput.StoreId,
+                    ContactId= Guid.NewGuid().ToString(),
+                    ContactData = new ContactDataVo(storeContactInput.LandLineNumber, 
+                    storeContactInput.Email, storeContactInput.MobileNumber, storeContactInput.ContactName)
+                };
+
+                await _mediator.Send(command);
+            }
+            else
+            {
+                //EditContactToStore command = new EditContactToStore
+                //{
+                //    StoreId = storeContactInput.StoreId,
+                //    ContactId = storeContactInput.ContactId,
+                //    ContactData = new ContactDataVo(storeContactInput.LandLineNumber,
+                //    storeContactInput.Email, storeContactInput.MobileNumber, storeContactInput.ContactName)
+                //};
+
+                //await _mediator.Send(command);
+            }
+
+            return Json(new { existoso = true });
+        }
 
         #region Metodos privados 
 

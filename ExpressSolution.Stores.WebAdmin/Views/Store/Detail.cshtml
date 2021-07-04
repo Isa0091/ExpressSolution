@@ -3,6 +3,7 @@
 @using ExpressSolution.Stores.WebAdmin.Extensions
 @using ExpressSolution.Stores.WebAdmin.Models
 @using ExpressSolution
+@using ExpressSolution.Stores.WebAdmin.Models.Store.Inputs
 
 @{
     ViewData["Title"] = "Detail";
@@ -30,6 +31,7 @@
                                     {
                                         <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">Datos Adicionales</a></li>
                                         <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">Multimedias</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-6" aria-expanded="false">Contactos</a></li>
                                     }
 
                                 </ul>
@@ -143,7 +145,6 @@
                                             <br />
                                         </div>
                                     </div>
-
                                     <div id="tab-5" class="tab-pane">
                                         <div class="panel-body">
                                             <div class="row">
@@ -186,6 +187,57 @@
                                                                             <td>
                                                                                 <a class="deleteMultimedia btn btn-white" href="@Url.Action("DeleteMultimedia", "Store", new { storeId = Model.StoreInput.Id, multimediaId = multimedia.Id })">Eliminar</a>
                                                                             </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <div id="tab-6" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                @if (string.IsNullOrEmpty(Model.StoreInput.Id) == false)
+                                                {
+                                                    <div class="row" style="margin:15px!important">
+                                                        <div class="form-group">
+                                                            <a href="#" class="btn btn-white addContact">
+                                                                <i class="fa fa-plus"></i> Nuevo Contacto
+                                                            </a>
+                                                        </div>
+                                                        <br />
+                                                        <div class="">
+                                                            <table class="table border-bottom border-border">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Nombre</th>
+                                                                        <th>Línea fija</th>
+                                                                        <th>Celular</th>
+                                                                        <th>Email</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (StoreContactOutputVm c in Model.StoreContactOutputs)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@c.Name</td>
+                                                                            <td>@c.LandLineNumber</td>
+                                                                            <td>@c.MobileNumber</td>
+                                                                            <td>@c.Email</td>
+                                                                            <td><a class="btn btn-primary editcontact" 
+                                                                                           href="javascript:;"
+                                                                                           data-codigo="@c.Id"
+                                                                                           data-nombre="@c.Name"
+                                                                                           data-fija="@c.LandLineNumber"
+                                                                                           data-celular="@c.MobileNumber"
+                                                                                           data-email="@c.Email">Editar</a></td>
+                                                                            <td> <a class="btn btn-danger deletecontact" href="@Url.Action("DeleteContact", "Store", new { StoreId = Model.StoreInput.Id, contactId = c.Id })">Eliminar</a></td>
+                                                                          
                                                                         </tr>
                                                                     }
                                                                 </tbody>
@@ -318,6 +370,22 @@
                         <button type="button" class="btn btn-default btn-white" data-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="modal-detalle-contact" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Detalle de contacto</h4>
+            </div>
+            <div class="modal-body">
+                <div id="Rendercontact">
+                    @{await Html.RenderPartialAsync("~/Views/Store/_StoreContact.cshtml", new StoreContactInputVm { StoreId = Model.StoreInput.Id });}
+                </div>
             </div>
         </div>
     </div>
@@ -483,6 +551,61 @@
                 })
             });
 
+            $(document).on("click", "#btn-guardar-contact", function (e) {
+                e.preventDefault();
+                Bitworks.Ventanas.mostrarLoading();
+                var url = $("#frmContact").attr('action');
+
+                if ($("#frmContact").valid() == false) {
+                    $("#frmContact").submit();
+                    Bitworks.Ventanas.ocultarLoading();
+                } else {
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: $("#frmContact").serialize()
+                    }).done(function (data) {
+                        if (data.exitoso == false) {
+                            $("#Rendercontact").empty();
+                            $("#Rendercontact").html(data.html);
+                            Bitworks.Ventanas.ocultarLoading();
+                        } else {
+                            swal({
+                                title: "Guardado!",
+                                text: "Contacto almacenado exitosamente",
+                                type: "success"
+                            }, function () {
+                                location.reload();
+                            });
+                        }
+                    }).fail(function () {
+                        swal("Error", "Error al almacenar los datos de contacto", "error");
+                    });
+                }
+            });
+
+            $(document).on("click", ".editcontact", function (e) {
+
+                $("#ContactId").val($(this).data("codigo"));
+                $("#ContactName").val($(this).data("nombre"));
+                $("#LandLineNumber").val($(this).data("fija"));
+                $("#MobileNumber").val($(this).data("celular"));
+                $("#Email").val($(this).data("email"));
+
+                $("#modal-detalle-contact").modal();
+            });
+
+
+            $(document).on("click", ".addContact", function (e) {
+
+                $("#ContactId").val(null);
+                $("#ContactName").val(null);
+                $("#LandLineNumber").val(null);
+                $("#MobileNumber").val(null);
+                $("#Email").val(null);
+
+                $("#modal-detalle-contact").modal();
+            });
         });
     </script>
 }

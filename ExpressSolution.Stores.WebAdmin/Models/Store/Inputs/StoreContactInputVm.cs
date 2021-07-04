@@ -25,7 +25,7 @@ namespace ExpressSolution.Stores.WebAdmin.Models.Store.Inputs
         /// </summary>
         [Required(ErrorMessage = "El nombre es requerido")]
         [StringLength(300, ErrorMessage = "La longitud del nombre debe ser {1}")]
-        public string Name { get; set; }
+        public string ContactName { get; set; }
 
         /// <summary>
         /// 
