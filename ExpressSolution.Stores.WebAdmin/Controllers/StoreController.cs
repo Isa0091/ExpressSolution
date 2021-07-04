@@ -45,11 +45,11 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
             List<StoreOutputVm> stores = result.PaginatedList.Select(z => new StoreOutputVm()
             {
-                  Active= z.Active,
-                  DateCreated= z.DateCreated.ToString("dd/MM/yyyy"),
-                  Description= z.Description.Description,
-                  Id= z.Id,
-                  Name= z.Name
+                Active = z.Active,
+                DateCreated = z.DateCreated.ToString("dd/MM/yyyy"),
+                Description = z.Description.Description,
+                Id = z.Id,
+                Name = z.Name
 
             }).ToList();
 
@@ -91,13 +91,13 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             List<Category> categories = await _mediator.Send(new GetCategory());
             List<string> idCategoriesStore = store.StoreCategories.Select(z => z.CategoryId).ToList();
 
-            foreach(Category category in categories)
+            foreach (Category category in categories)
             {
                 categoryStores.Add(new CategoryStoreInputVm()
                 {
-                     Id= category.Id,
-                     Name= category.Name,
-                     Selected= idCategoriesStore.Contains(category.Id)
+                    Id = category.Id,
+                    Name = category.Name,
+                    Selected = idCategoriesStore.Contains(category.Id)
                 });
             }
 
@@ -113,8 +113,8 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             {
                 StoreId = storeId,
                 Categories = categories
-            }) ;
-            return Json(new { exitoso = true});
+            });
+            return Json(new { exitoso = true });
         }
 
         [HttpPost]
@@ -129,21 +129,21 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
                 return View(detailStore);
             }
 
-            if(string.IsNullOrEmpty(storeInput.Id))
+            if (string.IsNullOrEmpty(storeInput.Id))
             {
                 storeId = Guid.NewGuid().ToString();
                 await _mediator.Send(new CreateStore()
-                { 
-                  Id= storeId,
-                  StoreData= new Dtos.Store.StoreData()
-                  {
-                       Description= new DescriptionVo(storeInput.Description, storeInput.ExtendedDescription),
-                       Name= storeInput.Name
-                  }
+                {
+                    Id = storeId,
+                    StoreData = new Dtos.Store.StoreData()
+                    {
+                        Description = new DescriptionVo(storeInput.Description, storeInput.ExtendedDescription),
+                        Name = storeInput.Name
+                    }
                 });
             }
 
-            if (string.IsNullOrEmpty(storeInput.Id)==false)
+            if (string.IsNullOrEmpty(storeInput.Id) == false)
             {
                 await _mediator.Send(new EditStore()
                 {
@@ -160,7 +160,7 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             return RedirectToAction("Detail", new { id = storeId });
         }
 
-            [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> SaveDynamicData(DynamicDataStoreInputVm dynamicDataStore)
         {
             AddDynamicDataToStore command = new AddDynamicDataToStore
@@ -181,7 +181,7 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
         {
             RemoveDynamicDataFromStore command = new RemoveDynamicDataFromStore
             {
-                StoreId= storeId,
+                StoreId = storeId,
                 DataName = name
             };
 
@@ -218,12 +218,12 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
                 await _mediator.Send(command);
             }
-            catch(ClientException ex)
+            catch (ClientException ex)
             {
                 TempData["error"] = ex.Message;
                 return RedirectToAction("Detail", new { id = multimediaStoreInput.StoreId });
             }
-    
+
             TempData["success"] = "Multimedia agregada exitosamente";
             return RedirectToAction("Detail", new { id = multimediaStoreInput.StoreId });
         }
@@ -234,7 +234,7 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             RemoveMultimediaFromStore command = new RemoveMultimediaFromStore
             {
                 StoreId = storeId,
-                 MultimediaId = multimediaId
+                MultimediaId = multimediaId
             };
 
             await _mediator.Send(command);
@@ -271,9 +271,9 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             {
                 AddContactStore command = new AddContactStore
                 {
-                    StoreId =storeContactInput.StoreId,
-                    ContactId= Guid.NewGuid().ToString(),
-                    ContactData = new ContactDataVo(storeContactInput.LandLineNumber, 
+                    StoreId = storeContactInput.StoreId,
+                    ContactId = Guid.NewGuid().ToString(),
+                    ContactData = new ContactDataVo(storeContactInput.LandLineNumber,
                     storeContactInput.Email, storeContactInput.MobileNumber, storeContactInput.ContactName)
                 };
 
@@ -293,6 +293,24 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
             }
 
             return Json(new { existoso = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateStateStore(string storeId, bool state)
+        {
+            if (state == false)
+                await _mediator.Send(new InactivateStore()
+                {
+                    StoreId = storeId
+                });
+
+            if (state)
+                await _mediator.Send(new ActiveStore()
+                {
+                    StoreId = storeId
+                });
+
+            return Json(new { exitoso = true });
         }
 
         #region Metodos privados 
@@ -343,28 +361,28 @@ namespace ExpressSolution.Stores.WebAdmin.Controllers
 
                 List<Category> categories = await _mediator.Send(new GetCategoryByIds()
                 {
-                    CategoryIds= store.StoreCategories.Select(z=>z.CategoryId).ToList() 
+                    CategoryIds = store.StoreCategories.Select(z => z.CategoryId).ToList()
                 });
 
                 detailStore.Categories = categories.Select(z => z.Name).ToList();
 
                 detailStore.MultimediaStoreOutput = store.Multimedia.Select(z => new MultimediaStoreOutputVm()
                 {
-                     Id= z.Id,
-                     MimeType= z.DataMultimedia.MimeType,
-                     MultimediaRelevance= z.MultimediaRelevance,
-                     MultimediaType= z.DataMultimedia.MultimediaType,
-                     UrlMultimedia= z.DataMultimedia.UrlMultimedia
+                    Id = z.Id,
+                    MimeType = z.DataMultimedia.MimeType,
+                    MultimediaRelevance = z.MultimediaRelevance,
+                    MultimediaType = z.DataMultimedia.MultimediaType,
+                    UrlMultimedia = z.DataMultimedia.UrlMultimedia
 
                 }).ToList();
 
                 detailStore.StoreContactOutputs = store.Contacts.Select(z => new StoreContactOutputVm()
                 {
-                     Email= z.ContactData.Email,
-                     Id= z.Id,
-                     LandLineNumber= z.ContactData.LandLineNumber,
-                     MobileNumber= z.ContactData.MobileNumber,
-                     Name= z.ContactData.Name
+                    Email = z.ContactData.Email,
+                    Id = z.Id,
+                    LandLineNumber = z.ContactData.LandLineNumber,
+                    MobileNumber = z.ContactData.MobileNumber,
+                    Name = z.ContactData.Name
 
                 }).ToList();
 

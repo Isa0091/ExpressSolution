@@ -393,6 +393,7 @@
 
 <input type="hidden" value="@ViewBag.success" id="success" />
 <input type="hidden" value="@ViewBag.Error" id="Error" />
+<input type="hidden" value="@Url.Action("UpdateStateStore","Store")" id="url-updatestate-store"/>
 
 @section Scripts{
 
@@ -467,7 +468,6 @@
                             $("#categories").html('');
                             $("#categories").html(result.html);
                             $('.multiple').multiselect();
-                            /* $.validator.unobtrusive.parse("#frmguardarsucursal");*/
                             Bitworks.Ventanas.ocultarLoading();
                             $("#modal-detalle-categories").modal();
 
@@ -624,6 +624,29 @@
                     }
                 })
             });
-        });
+
+            $(document).on("click", "#Active", function (e) {
+                Bitworks.Ventanas.mostrarLoading();
+                var url = $("#url-updatestate-store").val();
+                var storeid = $("#StoreInput_Id").val();
+                var state = $(this).is(':checked');
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        storeId: storeid,
+                        state: state
+                    }
+                }).done(function (data) {
+                    if (data.exitoso) {
+                        Bitworks.Ventanas.ocultarLoading();
+                    } else {
+                        swal("Error", "Error al cambiar el estado de la tienda", "error");
+                    }
+                }).fail(function () {
+                    swal("Error", "Error al cambiar el estado de la tienda", "error");
+                });
+            });
+       });
     </script>
 }

@@ -45,7 +45,7 @@
                 <div class="ibox-title">Listado</div>
                 <div class="ibox-content">
                     <div class="form-group">
-                        <a asp-action="Detail" asp-controller="Caterory" class="btn btn-white">
+                        <a asp-action="Detail" asp-controller="Category" class="btn btn-white">
                             <i class="fa fa-plus"></i> Nueva categoria
                         </a>
                     </div>
@@ -80,7 +80,7 @@
 
                                         </td>
 
-                                        <td><input type="checkbox" class="chkActivo" data-codigo="@item.Id" @Html.Raw(item.Active ? "checked='checked'" : "") /></td>
+                                        <td><input type="checkbox" disabled class="chkActivo" data-codigo="@item.Id" @Html.Raw(item.Active ? "checked='checked'" : "") /></td>
                                         <td>@item.DateCreated</td>
                                         <td>
                                             <a asp-action="Detail" asp-controller="Category" asp-route-Id="@item.Id" class="btn btn-white"><i class="fa fa-pencil"></i> Detalle</a>

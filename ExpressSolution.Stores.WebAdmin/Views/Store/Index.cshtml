@@ -70,7 +70,7 @@
 
                                         <td>@item.Name</td>
                                         <td>@item.Description</td>
-                                        <td><input type="checkbox" class="chkActivo" data-codigo="@item.Id" @Html.Raw(item.Active ? "checked='checked'" : "") /></td>
+                                        <td><input type="checkbox" disabled class="chkActivo" data-codigo="@item.Id" @Html.Raw(item.Active ? "checked='checked'" : "") /></td>
                                         <td>@item.DateCreated</td>
                                         <td>
                                             <a asp-action="Detail" asp-controller="Store" asp-route-Id="@item.Id" class="btn btn-white"><i class="fa fa-pencil"></i> Detalle</a>
