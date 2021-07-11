@@ -1,6 +1,8 @@
 using ExpressSolution.Stores.Data;
+using ExpressSolution.Stores.Data.Repos;
 using Isa0091.Domain.Context.ServicesBusSenders;
 using Isa0091.Domain.ContextInjection;
+using ManagerFileEasyAzure.Injection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,10 +37,17 @@ namespace ExpressSolution.Stores.WebPublic
 
             });
 
+
+            //Repo
+            services.AddScoped<ICategoryRepo, CategoryRepo>();
+            services.AddScoped<IStoreRepo, StoreRepo>();
+
             //MEDIATR
             services.AddMediatR(new Assembly[] { typeof(ExpressSolution.Stores.Handlers.DummyMarker).Assembly });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddManegerFileEasyAzure(_conf["AzureStorage:Connection"], _conf["AzureStorage:container"]);
 
             //Integration events
             IntegrationEventTopicConfiguration eventConfig = _conf
